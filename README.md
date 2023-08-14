@@ -26,6 +26,9 @@ DevOps is like a set of teamwork strategies, tools, and processes that help diff
 08/14/2023 8:39
 
 # System Prerequisite & Setup
+Using straightforward language to help everyone grasp the procedures or activities, I described what DevOps is all about in my earlier piece.
+The setup of the configuration or environment will be the following topic. In my 𝗚𝗶𝘁𝗛𝘂𝗯(https://lnkd.in/gt3QBJeA) account, I've made available all the tools and account creation instructions required to finish the [DevOps]() course by Imran Teli.
+
 ## 1. VMware ESXi server Machine Specification
 - ASRock LGA 1200 Intel H470 SATA 6Gb/s Micro ATX Intel Motherboard
 - i5 Intel Core Processor
@@ -34,10 +37,10 @@ DevOps is like a set of teamwork strategies, tools, and processes that help diff
 - Non-SSD: 250GB x 3
 - VMware ESXi 6.5 [Installation Guide](https://vcdx133.com/2017/03/06/vsphere-6-5-basics-part-1-esxi-install/)
 - Configured with Static IP address
- 
-To focus solely on my project I decided to concentrate on utilizing Linux and MacOS as my operating systems. After consideration I opted for [Centos-9-Stream](https://mirrors.centos.org/mirrorlist?path=/9-stream/BaseOS/x86_64/iso/CentOS-Stream-9-latest-x86_64-dvd1.iso&redirect=1&protocol=https) as the chosen distribution.
 
-Initially I planned to utilize [VirtualBox](https://www.virtualbox.org/wiki/Downloads) to install Centos 9; however I reconsidered due, to concerns, about disk space. Instead I chose to employ [UTM](https://mac.getutm.app) on my MacBook Pro. Successfully installed Centos 9 Stream.
+I chose to concentrate on using Linux and MacOS as my operating systems so that I could give all of my attention to my project. Having given it some thought, I decided on [𝗖𝗲𝗻𝘁𝗼𝘀-𝟵-𝗦𝘁𝗿𝗲𝗮𝗺](https://mirrors.centos.org/mirrorlist?path=/9-stream/BaseOS/x86_64/iso/CentOS-Stream-9-latest-x86_64-dvd1.iso&redirect=1&protocol=https).
+
+I initially intended to use VirtualBox as the host virtual machine to install Centos-9-Stream as the guest operating system, but I changed my mind over disk space issues. Instead, I used [𝗨𝗧𝗠](https://mac.getutm.app) on my MacBook Pro to have Centos-9-Stream installed successfully.
 
 ## 2. Centos 9 Stream on UTM Platform Specification
 - Architecture - x86_64
