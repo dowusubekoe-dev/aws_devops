@@ -1,4 +1,4 @@
-# devops_imran-telli
+# devops_imran-teli
 08/08/2023 09:23 Publish
 
 Hello [**LinkedIn**](https://www.linkedin.com) Family, I am embarking on this journey with the objective of learning and mastering [**DevOps**](https://www.youtube.com/watch?v=Xrgk023l4lI). Some of the basics skills to learn in this roadmap includes
