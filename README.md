@@ -26,12 +26,12 @@ DevOps is like a set of teamwork strategies, tools, and processes that help diff
 08/14/2023 8:39
 
 # System Prerequisite & Setup
-## VMware ESXi server Machine Specification
+## 1. VMware ESXi server Machine Specification
 - ASRock LGA 1200 Intel H470 SATA 6Gb/s Micro ATX Intel Motherboard
 - i5 Intel Core Processor
 - 64 GB RAM
 - HDD1: 2TB SSD
-- Non-SSD: 259GB x 3
+- Non-SSD: 250GB x 3
 - VMware ESXi 6.5 [Installation Guide](https://vcdx133.com/2017/03/06/vsphere-6-5-basics-part-1-esxi-install/)
 - Configured with Static IP address
  
@@ -39,13 +39,13 @@ To focus solely on my project I decided to concentrate on utilizing Linux and Ma
 
 Initially I planned to utilize [VirtualBox](https://www.virtualbox.org/wiki/Downloads) to install Centos 9; however I reconsidered due, to concerns, about disk space. Instead I chose to employ [UTM](https://mac.getutm.app) on my MacBook Pro. Successfully installed Centos 9 Stream.
 
-## Centos 9 Stream on UTM Platform Specification
+## 2. Centos 9 Stream on UTM Platform Specification
 - Architecture - x86_64
 - Machine - Standard PC (Q35 + ICH9) (alias of pc-q35-7.2) (q35)
 - Memory - 4GB
 - HDD Size - 50GB
 
-### Install JDK8 but I recommend JDK11 (Centos UTM)
+### 2a. Install JDK8 but I recommend JDK11 (Centos UTM)
 - Open the termial and type the following commands
 `$ sudo dnf install git`
 `$ sudo yum -y install java-11-openjdk java-11-openjdk-devel`
@@ -54,7 +54,7 @@ Initially I planned to utilize [VirtualBox](https://www.virtualbox.org/wiki/Down
 #### Resources
 [JDK11 Installation](https://computingforgeeks.com/how-to-install-java-11-openjdk-11-on-rhel-8/)
 	
-### Maven (Centos UTM)
+### 2b. Maven (Centos UTM)
 - Open the termial and type the following commands
 `$ sudo dnf install git`
 `$ sudo yum install wget unzip zip -y`
@@ -76,11 +76,11 @@ Initially I planned to utilize [VirtualBox](https://www.virtualbox.org/wiki/Down
 [Maven vesion](https://maven.apache.org/download.cgi) or 
 [Maven Installation steps](https://dyclassroom.com/reference-server/how-to-install-apache-maven-on-centos-server)
 
-### VMware Workstation Player, VMware Fusion for Mac OS or Linux
+### 2c. VMware Workstation Player, VMware Fusion for Mac OS or Linux
 You can install any of the aforementioned apps on your laptop or desktop computer if that is how you like to build your infrastructure. I choose to create the local infrastructure for this project using a [VMware ESXi](https://www.vmware.com/products/esxi-and-esx.html) host.
 The main goal of this project is to become an expert at using vagrant to provision servers in the cloud with any Cloud service provider.
 
-### Git Bash (Centos UTM)
+### 2d. Git Bash (Centos UTM)
 - Open the termial and type the following command
 `$ sudo dnf install git`
 - Verify Git installation:
@@ -109,7 +109,7 @@ The main goal of this project is to become an expert at using vagrant to provisi
 [Install Git using Apstream](https://idroot.us/install-git-centos-9-stream/)
 [Install Git](https://unixcop.com/how-to-install-git-on-centos-9-stream-fedora/)
 
-### Vagrant (Centos UTM)
+### 2e. Vagrant (Centos UTM)
 - Go to [Vagrant](https://developer.hashicorp.com/vagrant/downloads) download page
 - Right click on your desired operting system and copy the download link
 `sudo dnf install https://releases.hashicorp.com/vagrant/2.x.x/vagrant_2.x.x_x86_64.rpm`
@@ -136,7 +136,7 @@ OR
 [VMware Utility](https://developer.hashicorp.com/vagrant/downloads/vmware)
 [Vagrant VMware ESXi Plugin Configuration](https://github.com/josenk/vagrant-vmware-esxi)
 
-### OVF Tool for VMware ESXi (Centos UTM)
+### 2f. OVF Tool for VMware ESXi (Centos UTM)
 The tool can be downloaded from [VMware](https://code.vmware.com/web/tool/4.3.0/ovf). A VMware account is needed to download the tool. You can also download [OVF Tool](https://github.com/rgl/ovftool-binaries) the binary files from this link.
 #### Procedure
 - Download the [VMware OVF Tool](https://github.com/rgl/ovftool-binaries) and copy it to your host under your home directory (or other location).
@@ -155,7 +155,7 @@ The tool can be downloaded from [VMware](https://code.vmware.com/web/tool/4.3.0/
 [Download OVF Tool Binaries](https://github.com/rgl/ovftool-binaries)
 [How to install OVF Tool](https://docs.vmware.com/en/VMware-Telco-Cloud-Operations/1.4.0/deployment-guide-140/GUID-95301A42-F6F6-4BA9-B3A0-A86A268754B6.html)
 
-### VSCode (Centos UTM)
+### 2g. VSCode (Centos UTM)
 Import Microsoft’s GPG Key
 `$ sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc`
 Enable yum repository
@@ -172,7 +172,7 @@ Install Visual Studio Code
 #### Resources
 [Install VSCode](https://servonode.com/install-visual-studio-code-on-fedora-rhel-centos)
 
-### Python (Centos UTM)
+### 2h. Python (Centos UTM)
 - Launch the [Python](https://www.python.org/downloads/) page
 `$ cd /var/tmp/`
 `$ wget https://www.python.org/ftp/python/3.x.x/Python-3.x.x.tgz`
@@ -190,7 +190,7 @@ Install Visual Studio Code
 [Python Download](https://www.python.org/downloads/)
 [Install Python](https://idroot.us/install-python-centos-9-stream/)
 
-### AWS CLI
+### 2i. AWS CLI
 - Open terminal and run the commands below
 `$ cd /var/tmp/`
 `$ wget https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip`
