@@ -17,8 +17,8 @@ There are various teams involved in software development, including the research
 
 DevOps is like a set of teamwork strategies, tools, and processes that help different groups work together better to create software that's faster, more reliable, and of higher quality.
 
-⚙️ **Collaboration:** DevOps helps these teams talk to each other more. Developers talk to designers, testers also talk to developers, and everyone knows what's happening.
-⚙️ **Speed:** With DevOps, we use tools and processes to make things faster, hence making changes quickly, and the final product gets to users faster.
-⚙️ **Quality:** DevOps detects early mistakes in the software before it gets deployed for customers. It's like having lots of testers making sure everything works well.
-⚙️ **Feedback:** The DevOps team releases better software products based on consumer feedback.
-⚙️ **Automation:** Think of having a robot that can format the text perfectly so the writer doesn't need to worry. DevOps uses automation tools to do repetitive tasks, saving time and reducing errors.
+- ⚙️ **Collaboration:** DevOps helps these teams talk to each other more. Developers talk to designers, testers also talk to developers, and everyone knows what's happening.
+- ⚙️ **Speed:** With DevOps, we use tools and processes to make things faster, hence making changes quickly, and the final product gets to users faster.
+- ⚙️ **Quality:** DevOps detects early mistakes in the software before it gets deployed for customers. It's like having lots of testers making sure everything works well.
+- ⚙️ **Feedback:** The DevOps team releases better software products based on consumer feedback.
+- ⚙️ **Automation:** Think of having a robot that can format the text perfectly so the writer doesn't need to worry. DevOps uses automation tools to do repetitive tasks, saving time and reducing errors.
