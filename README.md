@@ -31,8 +31,8 @@ The setup of the configuration or environment will be the following topic. In my
 
 ## 1. VMware ESXi server Machine Specification
 - ASRock LGA 1200 Intel H470 SATA 6Gb/s Micro ATX Intel Motherboard
-- i5 Intel Core Processor
-- 64 GB RAM
+- 4 CPUs x Intel(R) Core(TM) i5-6500 CPU @ 3.20GHz
+- 32 GB RAM
 - HDD1: 2TB SSD
 - Non-SSD: 250GB x 3
 - VMware ESXi 6.5 [Installation Guide](https://vcdx133.com/2017/03/06/vsphere-6-5-basics-part-1-esxi-install/)
@@ -215,3 +215,103 @@ Install Visual Studio Code
 - Setup IAM with 2MFA
 - Set Billing Alarm
 - Certificate Setup
+
+## Phase 3: Setting up VMs Automatically
+Vagrant is a tool for building and managing virtual machine environments in a single workflow. Vagrant enables the creation and configuration of lightweight, reproducible, and portable development environments.
+
+The steps below outlines the basic steps in the Vagrant architecture:
+- Check if the Vagrantfile is present.
+- If the Vagrantfile is present, proceed to configure the VM settings.
+- Initialize the Vagrant environment based on the Vagrantfile.
+- Download the specified base box (operating system image) if not already present.
+- Provision the virtual machine by running provisioners (scripts or configuration management tools).
+- Start the virtual machine.
+- Access the virtual machine using SSH, RDP, or other methods.
+
++-----------------------------------------+
+|          Vagrant Architecture           |
++-----------------------------------------+
+                  |
+                  v
++-----------------+     Yes     +----------------+
+| Is Vagrantfile  +------------>|  Configure VM  |
+|   present?      |             |  Settings      |
++-----------------+             +----------------+
+      | No                           |
+      v                              v
++-----------------+          +----------------+
+|   Initialize    |          |    Download    |
+|   Environment   +<---------+   Base Box     |
++-----------------+          +----------------+
+      |
+      v
++-----------------+          +----------------+
+|   Provision     |          |   Customize    |
+|   Virtual       +--------->|    VM with     |
+|   Machine       |          |   Provisioners |
++-----------------+          +----------------+
+      |
+      v
++-----------------+
+|    Start VM     |
++-----------------+
+      |
+      v
++-----------------+
+|    Access VM    |
+| (SSH, RDP, etc.)|
++-----------------+
+
+### Vagrant commands
+There are several Vagrant commands which you can use to control your box.
+
+Some of the important ones are:
+
+`vagrant up`: Bring a box online.
+`vagrant status`: Show current box status.
+`vagrant suspend`: Pause the current box.
+`vagrant resume`: Resume the current box.
+`vagrant halt`: Shutdown the current box.
+`vagrant destroy`: Destroy the current box. By running this command, you will lose any data stored on the box.
+`vagrant snapshot`: Take a snapshot of the current box.
+
++-------------------+
+|    Vagrantfile    |
+|-------------------|
+|  Configure VMs    |
+|  and Provision    |
+|  using Vagrant    |
++-------------------+
+         |
+         v
++-------------------+
+|      Vagrant      |
+|-------------------|
+|  Interact with    |
+|  VMware Provider  |
+|  and VMware API   |
++-------------------+
+         |
+         v
++-------------------+
+|      VMware       |
+|-------------------|
+|  Hosts Virtual    |
+|  Machines         |
+|-------------------|
+|   +------------+  |
+|   |   VM 1     |  |
+|   |------------|  |
+|   |            |  |
+|   +------------+  |
+|                   |
+|   +------------+  |
+|   |   VM 2     |  |
+|   |------------|  |
+|   |            |  |
+|   +------------+  |
++-------------------+
+
+
+#### Resources
+[Vagrant Documentaion](https://developer.hashicorp.com/vagrant/tutorials/getting-started/getting-started-index)
