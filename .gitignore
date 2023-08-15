@@ -1,4 +1,8 @@
+# Exludes or ignore .DS_Store during git updates and push
 **/.DS_Store
+
+# Run this command to delete the 
+# find . -name '.DS_Store' -type f -delete
 
 # Local .terraform directories
 **/.terraform/*
