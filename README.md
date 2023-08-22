@@ -50,31 +50,47 @@ I initially intended to use VirtualBox as the host virtual machine to install Ce
 
 ### 2a. Install JDK8 but I recommend JDK11 (Centos UTM)
 - Open the termial and type the following commands
-`$ sudo dnf install git`
+
 `$ sudo yum -y install java-11-openjdk java-11-openjdk-devel`
+
 `$ java --version`
+
 `$ which java`
+
 #### Resources
 [JDK11 Installation](https://computingforgeeks.com/how-to-install-java-11-openjdk-11-on-rhel-8/)
 	
 ### 2b. Maven (Centos UTM)
 - Open the termial and type the following commands
-`$ sudo dnf install git`
+
 `$ sudo yum install wget unzip zip -y`
+
 `$ cd /var/tmp`
+
 `$ https://dlcdn.apache.org/maven/maven-3/3.9.4/binaries/apache-maven-3.9.4-bin.zip`
+
 `$ unzip apache-maven-3.9.4-bin.zip`
+
 `$ mv apache-maven-3.9.4 /opt/`
+
 `$ cd /opt/`
+
 `$ cd `
+
 `$ vi .bash_profile`
+
 - Press SHIFT + i and copy/paste the following lines;
+
 `export APACHE_MAVEN=/opt/apache-maven-3.9.4`
+
 `PATH=$HOME/bin:$APACHE_MAVEN/bin:$PATH`
+
 `export PATH`
 
 `$ source .bash_profile`
+
 `$ mvn --version`
+
 #### Resources
 [Maven vesion](https://maven.apache.org/download.cgi) or 
 [Maven Installation steps](https://dyclassroom.com/reference-server/how-to-install-apache-maven-on-centos-server)
@@ -85,17 +101,23 @@ The main goal of this project is to become an expert at using vagrant to provisi
 
 ### 2d. Git Bash (Centos UTM)
 - Open the termial and type the following command
+
 `$ sudo dnf install git`
+
 - Verify Git installation:
+
 `$ git --version`
 
 #### Create Git Repository
 - Login to Github and create the repository
 - Create a local repository with the same name as the git repository on your computer
 - Go back to the terminal and create the .gitignore file
+
 `$ vi .gitignore`
+
 - Add this `**/.DS_Store` to your .gitignore file, save and exit
 - Run the commands below
+
 `echo "# devops_imran-telli" >> README.md`
 `git init`
 `git add README.md`
