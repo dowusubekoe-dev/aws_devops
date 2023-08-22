@@ -1,5 +1,5 @@
 # devops_imran-teli
-08/08/2023 09:23 Publish
+08/08/2023 09:23 Published
 
 Hello [**LinkedIn**](https://www.linkedin.com) Family, I am embarking on this journey with the objective of learning and mastering [**DevOps**](https://www.youtube.com/watch?v=Xrgk023l4lI). Some of the basics skills to learn in this roadmap includes
 
@@ -23,7 +23,7 @@ DevOps is like a set of teamwork strategies, tools, and processes that help diff
 - ⚙️ **Feedback:** The DevOps team releases better software products based on consumer feedback.
 - ⚙️ **Automation:** Think of having a robot that can format the text perfectly so the writer doesn't need to worry. DevOps uses automation tools to do repetitive tasks, saving time and reducing errors.
 
-08/14/2023 8:39
+08/14/2023 8:39 Published
 
 # System Prerequisite & Setup
 Using straightforward language to help everyone grasp the procedures or activities, I described what DevOps is all about in my earlier piece.
