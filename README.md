@@ -51,11 +51,11 @@ I initially intended to use VirtualBox as the host virtual machine to install Ce
 ### 2a. Install JDK8 but I recommend JDK11 (Centos UTM)
 - Open the termial and type the following commands
 
-`$ sudo yum -y install java-11-openjdk java-11-openjdk-devel`
+	`$ sudo yum -y install java-11-openjdk java-11-openjdk-devel`
 
-`$ java --version`
+	`$ java --version`
 
-`$ which java`
+	`$ which java`
 
 #### Resources
 [JDK11 Installation](https://computingforgeeks.com/how-to-install-java-11-openjdk-11-on-rhel-8/)
@@ -63,33 +63,33 @@ I initially intended to use VirtualBox as the host virtual machine to install Ce
 ### 2b. Maven (Centos UTM)
 - Open the termial and type the following commands
 
-`$ sudo yum install wget unzip zip -y`
+	`$ sudo yum install wget unzip zip -y`
 
-`$ cd /var/tmp`
+	`$ cd /var/tmp`
 
-`$ https://dlcdn.apache.org/maven/maven-3/3.9.4/binaries/apache-maven-3.9.4-bin.zip`
+	`$ https://dlcdn.apache.org/maven/maven-3/3.9.4/binaries/apache-maven-3.9.4-bin.zip`
 
-`$ unzip apache-maven-3.9.4-bin.zip`
+	`$ unzip apache-maven-3.9.4-bin.zip`
 
-`$ mv apache-maven-3.9.4 /opt/`
+	`$ mv apache-maven-3.9.4 /opt/`
 
-`$ cd /opt/`
+	`$ cd /opt/`
 
-`$ cd `
+	`$ cd `
 
-`$ vi .bash_profile`
+	`$ vi .bash_profile`
 
 - Press SHIFT + i and copy/paste the following lines;
 
-`export APACHE_MAVEN=/opt/apache-maven-3.9.4`
+	`export APACHE_MAVEN=/opt/apache-maven-3.9.4`
 
-`PATH=$HOME/bin:$APACHE_MAVEN/bin:$PATH`
+	`PATH=$HOME/bin:$APACHE_MAVEN/bin:$PATH`
 
-`export PATH`
+	`export PATH`
 
-`$ source .bash_profile`
+	`$ source .bash_profile`
 
-`$ mvn --version`
+	`$ mvn --version`
 
 #### Resources
 [Maven vesion](https://maven.apache.org/download.cgi) or 
@@ -102,42 +102,42 @@ The main goal of this project is to become an expert at using vagrant to provisi
 ### 2d. Git Bash (Centos UTM)
 - Open the termial and type the following command
 
-`$ sudo dnf install git`
+	`$ sudo dnf install git`
 
 - Verify Git installation:
 
-`$ git --version`
+	`$ git --version`
 
 #### Create Git Repository
 - Login to Github and create the repository
 - Create a local repository with the same name as the git repository on your computer
 - Go back to the terminal and create the .gitignore file
 
-`$ vi .gitignore`
+	`$ vi .gitignore`
 
 - Add this `**/.DS_Store` to your .gitignore file, save and exit
 - Run the commands below
 
-`$ echo "# devops_imran-telli" >> README.md`
+	`$ echo "# devops_imran-telli" >> README.md`
 
-`$ git init`
+	`$ git init`
 
-`$ git add README.md`
+	`$ git add README.md`
 
-`$ git commit -m "first commit"`
+	`$ git commit -m "first commit"`
 
-`$ git branch -M main`
+	`$ git branch -M main`
 
-`$ git remote add origin https://github.com/dowusubekoe-dev/devops_imran-telli.git`
+	`$ git remote add origin https://github.com/dowusubekoe-dev/devops_imran-telli.git`
 
-`$ git push -u origin main`
+	`$ git push -u origin main`
 
 - …or push an existing repository from the command line
-`$ git remote add origin https://github.com/dowusubekoe-dev/devops_imran-telli.git`
+	`$ git remote add origin https://github.com/dowusubekoe-dev/devops_imran-telli.git`
 
-`$ git branch -M main`
+	`$ git branch -M main`
 
-`$ git push -u origin main`
+	`$ git push -u origin main`
 
 #### Resources
 [Install Git using Apstream](https://idroot.us/install-git-centos-9-stream/)
@@ -147,33 +147,33 @@ The main goal of this project is to become an expert at using vagrant to provisi
 - Go to [Vagrant](https://developer.hashicorp.com/vagrant/downloads) download page
 - Right click on your desired operting system and copy the download link
 
-`$ sudo dnf install https://releases.hashicorp.com/vagrant/2.x.x/vagrant_2.x.x_x86_64.rpm`
+	`$ sudo dnf install https://releases.hashicorp.com/vagrant/2.x.x/vagrant_2.x.x_x86_64.rpm`
 OR
 - Run the following commands to install Vagrant
 
-`$ sudo yum install -y yum-utils`
+	`$ sudo yum install -y yum-utils`
 
-`$ sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo`
+	`$ sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo`
 
-`$ sudo yum -y install vagrant`
+	`$ sudo yum -y install vagrant`
 
 - **Vagrant Plugins (Centos UTM)**
 - Open the termial and type the following command
 
-`$ vagrant plugin install vagrant-vmware-esxi`
+	`$ vagrant plugin install vagrant-vmware-esxi`
 
 - **VMware Utility (Centos UTM)**
 - Open the termial and run command
 
-`$ sudo dnf install git`
+	`$ sudo dnf install git`
 
-`$ cd /var/tmp/`
+	`$ cd /var/tmp/`
 
-`$ wget https://releases.hashicorp.com/vagrant-vmware-utility/1.0.22/vagrant-vmware-utility-1.0.22-1.x86_64.rpm`
+	`$ wget https://releases.hashicorp.com/vagrant-vmware-utility/1.0.22/vagrant-vmware-utility-1.0.22-1.x86_64.rpm`
 
-`$ cd `
+	`$ cd `
 
-`$ sudo dnf install /var/tmp/vagrant-vmware-utility-1.0.22-1.x86_64.rpm`
+	`$ sudo dnf install /var/tmp/vagrant-vmware-utility-1.0.22-1.x86_64.rpm`
 
 #### Resources
 [Vagrant Installation](https://developer.hashicorp.com/vagrant/downloads)
@@ -188,16 +188,16 @@ The tool can be downloaded from [VMware](https://code.vmware.com/web/tool/4.3.0/
 - Launch the terminal
 - Run the .bashrc file:
 
-`$ vi ~/.bashrc`
+	`$ vi ~/.bashrc`
 - Add the following line to your .bashrc file:
 
-`export PATH=$PATH:/usr/lib/vmware-ovftool/ovftool`
+	`export PATH=$PATH:/usr/lib/vmware-ovftool/ovftool`
 - Run the source command to update the shell with the new changes
 
-`$ source .bashrc`
+	`$ source .bashrc`
 - Verify the VMware OVF Tool is installed.
 
-`$ ovftool --version`
+	`$ ovftool --version`
 
 #### Resources
 [Download OVF Tool Binaries](https://github.com/rgl/ovftool-binaries)
@@ -206,26 +206,26 @@ The tool can be downloaded from [VMware](https://code.vmware.com/web/tool/4.3.0/
 ### 2g. VSCode (Centos UTM)
 Import Microsoft’s GPG Key
 
-`$ sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc`
+	`$ sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc`
 Enable yum repository
 
-`$ sudo vim /etc/yum.repos.d/vstudio_code.repo`
+	`$ sudo vim /etc/yum.repos.d/vstudio_code.repo`
 Append the code below and save the created file.
 [code]
 
-`name=Visual Studio Code`
+	`name=Visual Studio Code`
 
-`baseurl=https://packages.microsoft.com/yumrepos/vscode`
+	`baseurl=https://packages.microsoft.com/yumrepos/vscode`
 
-`enabled=1`
+	`enabled=1`
 
-`gpgcheck=1`
+	`gpgcheck=1`
 
-`gpgkey=https://packages.microsoft.com/keys/microsoft.asc`
+	`gpgkey=https://packages.microsoft.com/keys/microsoft.asc`
 
 Install Visual Studio Code
 
-`$ sudo yum install code`
+	`$ sudo yum install code`
 
 #### Resources
 [Install VSCode](https://servonode.com/install-visual-studio-code-on-fedora-rhel-centos)
@@ -233,23 +233,23 @@ Install Visual Studio Code
 ### 2h. Python (Centos UTM)
 - Launch the [Python](https://www.python.org/downloads/) page
 
-`$ cd /var/tmp/`
+	`$ cd /var/tmp/`
 
-`$ wget https://www.python.org/ftp/python/3.x.x/Python-3.x.x.tgz`
+	`$ wget https://www.python.org/ftp/python/3.x.x/Python-3.x.x.tgz`
 - Then, extract the archive file using tar:
 
-`$ tar xvf Python-3.11.2.tgz`
+	`$ tar xvf Python-3.11.2.tgz`
 - Next, switch to the source directory and run the configuration script:
 
-`$ cd /var/tmp/Python-3.x.x`
+	`$ cd /var/tmp/Python-3.x.x`
 
-`$ ./configure --enable-optimizations`
+	`$ ./configure --enable-optimizations`
 - Finally, build Python using the following command:
 
-`$ sudo make altinstall`
+	`$ sudo make altinstall`
 - After the installation process has finished, confirm the version using the following command:
 
-`$ python3.x --version`
+	`$ python3.x --version`
 
 #### Resources
 [Python Download](https://www.python.org/downloads/)
@@ -258,17 +258,17 @@ Install Visual Studio Code
 ### 2i. AWS CLI
 - Open terminal and run the commands below
 
-`$ cd /var/tmp/`
+	`$ cd /var/tmp/`
 
-`$ wget https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip`
+	`$ wget https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip`
 
-`$ unzip awscliv2.zip`
+	`$ unzip awscliv2.zip`
 
-`$ cd /var/tmp/awscliv2`
+	`$ cd /var/tmp/awscliv2`
 
-`$ sudo ./aws/install -i /usr/local/aws-cli -b /usr/local/bin`
+	`$ sudo ./aws/install -i /usr/local/aws-cli -b /usr/local/bin`
 
-`$ aws --version`
+	`$ aws --version`
 #### Resources
 [AWS CLI Installation](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
 
@@ -301,13 +301,19 @@ There are several Vagrant commands which you can use to control your box.
 
 Some of the important ones are:
 
-`vagrant up`: Bring a box online.
-`vagrant status`: Show current box status.
-`vagrant suspend`: Pause the current box.
-`vagrant resume`: Resume the current box.
-`vagrant halt`: Shutdown the current box.
-`vagrant destroy`: Destroy the current box. By running this command, you will lose any data stored on the box.
-`vagrant snapshot`: Take a snapshot of the current box.
+	`vagrant up`: Bring a box online.
+
+	`vagrant status`: Show current box status.
+
+	`vagrant suspend`: Pause the current box.
+
+	`vagrant resume`: Resume the current box.
+
+	`vagrant halt`: Shutdown the current box.
+
+	`vagrant destroy`: Destroy the current box. By running this command, you will lose any data stored on the box.
+
+	`vagrant snapshot`: Take a snapshot of the current box.
 
 #### Resources
 [Vagrant Documentaion](https://developer.hashicorp.com/vagrant/tutorials/getting-started/getting-started-index)
