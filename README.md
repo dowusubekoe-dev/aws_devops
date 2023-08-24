@@ -29,7 +29,7 @@ DevOps is like a set of teamwork strategies, tools, and processes that help diff
 Using straightforward language to help everyone grasp the procedures or activities, I described what DevOps is all about in my earlier piece.
 The setup of the configuration or environment will be the following topic. In my 𝗚𝗶𝘁𝗛𝘂𝗯(https://lnkd.in/gt3QBJeA) account, I've made available all the tools and account creation instructions required to finish the [DevOps]() course by Imran Teli.
 
-## 1. VMware ESXi server Machine Specification
+# Phase 1. VMware ESXi server Machine Specification
 - ASRock LGA 1200 Intel H470 SATA 6Gb/s Micro ATX Intel Motherboard
 - 4 CPUs x Intel(R) Core(TM) i5-6500 CPU @ 3.20GHz
 - 32 GB RAM
@@ -42,13 +42,24 @@ I chose to concentrate on using Linux and MacOS as my operating systems so that 
 
 I initially intended to use VirtualBox as the host virtual machine to install Centos-9-Stream as the guest operating system, but I changed my mind over disk space issues. Instead, I used [𝗨𝗧𝗠](https://mac.getutm.app) on my MacBook Pro to have Centos-9-Stream installed successfully.
 
-## 2. Centos 9 Stream on UTM Platform Specification
+# Phase 2. Centos 9 Stream on UTM Platform Specification
+
+* Remember to run al the installation in this section with **sudo** *
+
 - Architecture - x86_64
 - Machine - Standard PC (Q35 + ICH9) (alias of pc-q35-7.2) (q35)
 - Memory - 4GB
 - HDD Size - 50GB
 
-### 2a. Install JDK8 but I recommend JDK11 (Centos UTM)
+#### Find the Network Interface for Mac
+`$ networksetup -listallhardwareports`
+
+ -> About This Mac -> More Info... -> System Report...
+`$ ioreg -r -n ARPT | grep IOName`
+
+- Network - Bridged (Advanced) : This should be tied to the MacBook network interface (**en0**) and the Emulated Network Card of the ESXi server (**rtl8139**)
+
+### Install JDK8 but I recommend JDK11 (Centos UTM)
 - Open the termial and type the following commands
 
 	`$ sudo yum -y install java-11-openjdk java-11-openjdk-devel`
@@ -60,7 +71,7 @@ I initially intended to use VirtualBox as the host virtual machine to install Ce
 #### Resources
 [JDK11 Installation](https://computingforgeeks.com/how-to-install-java-11-openjdk-11-on-rhel-8/)
 	
-### 2b. Maven (Centos UTM)
+### Maven (Centos UTM)
 - Open the termial and type the following commands
 
 	`$ sudo yum install wget unzip zip -y`
@@ -95,11 +106,11 @@ I initially intended to use VirtualBox as the host virtual machine to install Ce
 [Maven vesion](https://maven.apache.org/download.cgi) or 
 [Maven Installation steps](https://dyclassroom.com/reference-server/how-to-install-apache-maven-on-centos-server)
 
-### 2c. VMware Workstation Player, VMware Fusion for Mac OS or Linux
-You can install any of the aforementioned apps on your laptop or desktop computer if that is how you like to build your infrastructure. I choose to create the local infrastructure for this project using a [VMware ESXi](https://www.vmware.com/products/esxi-and-esx.html) host.
+### VMware Workstation Player, VMware Fusion for Mac OS or Linux
+You can install any of the aforementioned apps on your laptop or desktop computer if that is how you like to build your infrastructure. I choose to create the local infrastructure for this project using a [VMware ESXi](https://www.vmware.com/products/esxi-and-esx.html) host, hence the need to have an OVF file from VMware Player.
 The main goal of this project is to become an expert at using vagrant to provision servers in the cloud with any Cloud service provider.
 
-### 2d. Git Bash (Centos UTM)
+### Git Bash (Centos UTM)
 - Open the termial and type the following command
 
 	`$ sudo dnf install git`
@@ -181,23 +192,19 @@ OR
 [Vagrant VMware ESXi Plugin Configuration](https://github.com/josenk/vagrant-vmware-esxi)
 
 ### 2f. OVF Tool for VMware ESXi (Centos UTM)
-The tool can be downloaded from [VMware](https://code.vmware.com/web/tool/4.3.0/ovf). A VMware account is needed to download the tool. You can also download [OVF Tool](https://github.com/rgl/ovftool-binaries) the binary files from this link.
+The tool can be downloaded from [VMware](https://code.vmware.com/web/tool/4.3.0/ovf). A VMware account is needed to download the tool. You can also download [OVF Tool](https://github.com/rgl/ovftool-binaries) the binary files from this link. I installed the version **4.3.0** because of the compatibility issues with vmware hardware versions 4 - 13.
+
 #### Procedure
-- Download the [VMware OVF Tool](https://github.com/rgl/ovftool-binaries) and copy it to your host under your home directory (or other location).
-- Unzip the VMware OVF Tool. It should extract into a folder called **ovftool** in your directory.
-- Launch the terminal
-- Run the .bashrc file:
+- Go to the browser by clicking on this link [VMware OVF Tool v4.3.0](https://developer.vmware.com/web/tool/4.3.0/ovf/)
+- Download and navigate to the folder it was saved to
+- Make the installation file executable by running this command
+	`$ chmod +x VMware-ovftool-4.3.0-10104578-lin.x86_64.bundle`
 
-	`$ vi ~/.bashrc`
-- Add the following line to your .bashrc file:
+- Execute the file using the command below
+	`$ ./VMware-ovftool-4.3.0-10104578-lin.x86_64.bundle`
 
-	`export PATH=$PATH:/usr/lib/vmware-ovftool/ovftool`
-- Run the source command to update the shell with the new changes
+- Accept the End User License Agreement to continue.
 
-	`$ source .bashrc`
-- Verify the VMware OVF Tool is installed.
-
-	`$ ovftool --version`
 
 #### Resources
 [Download OVF Tool Binaries](https://github.com/rgl/ovftool-binaries)
@@ -269,8 +276,16 @@ Install Visual Studio Code
 	`$ sudo ./aws/install -i /usr/local/aws-cli -b /usr/local/bin`
 
 	`$ aws --version`
+
 #### Resources
 [AWS CLI Installation](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
+
+### Install Open-VM-Tools
+- Launch the terminal and run the following commands
+	`$ yum install open-vm-tools`
+
+- Reboot the server after finishing the installation
+
 
 ### Accounts & Sign Up
 1. GitHub
@@ -301,19 +316,26 @@ There are several Vagrant commands which you can use to control your box.
 
 Some of the important ones are:
 
-	`vagrant up`: Bring a box online.
+**`vagrant up`** : Brings a box online
+**`vagrant status`** : Show current box status
+**`vagrant suspend`** : Pause the current box
+**`vagrant resume`** : Resume the current box
+**`vagrant halt`** : Shutdown the current box
+**`vagrant destroy`** : Destroy the current box. By running this command, you will lose any data stored on the box
+**`vagrant snapshot`** : Take a snapshot of the current box	
 
-	`vagrant status`: Show current box status.
-
-	`vagrant suspend`: Pause the current box.
-
-	`vagrant resume`: Resume the current box.
-
-	`vagrant halt`: Shutdown the current box.
-
-	`vagrant destroy`: Destroy the current box. By running this command, you will lose any data stored on the box.
-
-	`vagrant snapshot`: Take a snapshot of the current box.
+### Creating the First VM
+- Create a directory with any of name of your choice. E.g **devops_projects** with a sub-directories of project names
+- Visit the [Vagrant Cloud Boxes](https://app.vagrantup.com/boxes/search) and filter boxes according to hosted providers.
+For this project, I focused on **vmware_desktop** and **vmware_workstation**.
+- Navigate to the sub directory for your project and run
+	`$ vagrant init <box name>`
+In order for the Vagrantfile to work with VMware_ESXi, I found a github project by [Josenk](https://github.com/josenk/vagrant-vmware-esxi) that better explained the configurtions for VMware ESXi so I used it and made modifications.
 
 #### Resources
 [Vagrant Documentaion](https://developer.hashicorp.com/vagrant/tutorials/getting-started/getting-started-index)
+
+
+
+
+# Phase 4: Linux Administration
