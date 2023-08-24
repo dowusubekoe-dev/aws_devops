@@ -29,7 +29,7 @@ DevOps is like a set of teamwork strategies, tools, and processes that help diff
 Using straightforward language to help everyone grasp the procedures or activities, I described what DevOps is all about in my earlier piece.
 The setup of the configuration or environment will be the following topic. In my 𝗚𝗶𝘁𝗛𝘂𝗯(https://lnkd.in/gt3QBJeA) account, I've made available all the tools and account creation instructions required to finish the [DevOps]() course by Imran Teli.
 
-# Phase 1. VMware ESXi server Machine Specification
+# Phase 1: VMware ESXi server Machine Specification
 - ASRock LGA 1200 Intel H470 SATA 6Gb/s Micro ATX Intel Motherboard
 - 4 CPUs x Intel(R) Core(TM) i5-6500 CPU @ 3.20GHz
 - 32 GB RAM
@@ -42,7 +42,7 @@ I chose to concentrate on using Linux and MacOS as my operating systems so that 
 
 I initially intended to use VirtualBox as the host virtual machine to install Centos-9-Stream as the guest operating system, but I changed my mind over disk space issues. Instead, I used [𝗨𝗧𝗠](https://mac.getutm.app) on my MacBook Pro to have Centos-9-Stream installed successfully.
 
-# Phase 2. Centos 9 Stream on UTM Platform Specification
+# Phase 2: Centos 9 Stream on UTM Platform Specification
 
 * Remember to run al the installation in this section with **sudo** *
 
@@ -263,7 +263,7 @@ Install Visual Studio Code
 [Python Download](https://www.python.org/downloads/)
 [Install Python](https://idroot.us/install-python-centos-9-stream/)
 
-### 2i. AWS CLI
+### AWS CLI
 - Open terminal and run the commands below
 
 	`$ cd /var/tmp/`
@@ -300,7 +300,7 @@ Install Visual Studio Code
 - Set Billing Alarm
 - Certificate Setup
 
-## Phase 3: Setting up VMs Automatically
+# Phase 3: Setting up VMs Automatically
 Vagrant is a tool for building and managing virtual machine environments in a single workflow. Vagrant enables the creation and configuration of lightweight, reproducible, and portable development environments.
 
 The steps below outlines the basic steps in the Vagrant architecture:
