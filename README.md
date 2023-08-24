@@ -145,6 +145,7 @@ The main goal of this project is to become an expert at using vagrant to provisi
 	`$ git push -u origin main`
 
 - …or push an existing repository from the command line
+
 	`$ git remote add origin https://github.com/dowusubekoe-dev/devops_imran-telli.git`
 
 	`$ git branch -M main`
