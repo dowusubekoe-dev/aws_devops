@@ -55,6 +55,7 @@ I initially intended to use VirtualBox as the host virtual machine to install Ce
 `$ networksetup -listallhardwareports`
 
  -> About This Mac -> More Info... -> System Report...
+
 `$ ioreg -r -n ARPT | grep IOName`
 
 - Network - Bridged (Advanced) : This should be tied to the MacBook network interface (**en0**) and the Emulated Network Card of the ESXi server (**rtl8139**)
@@ -154,7 +155,7 @@ The main goal of this project is to become an expert at using vagrant to provisi
 [Install Git using Apstream](https://idroot.us/install-git-centos-9-stream/)
 [Install Git](https://unixcop.com/how-to-install-git-on-centos-9-stream-fedora/)
 
-### 2e. Vagrant (Centos UTM)
+### Vagrant (Centos UTM)
 - Go to [Vagrant](https://developer.hashicorp.com/vagrant/downloads) download page
 - Right click on your desired operting system and copy the download link
 
@@ -191,7 +192,7 @@ OR
 [VMware Utility](https://developer.hashicorp.com/vagrant/downloads/vmware)
 [Vagrant VMware ESXi Plugin Configuration](https://github.com/josenk/vagrant-vmware-esxi)
 
-### 2f. OVF Tool for VMware ESXi (Centos UTM)
+### OVF Tool for VMware ESXi (Centos UTM)
 The tool can be downloaded from [VMware](https://code.vmware.com/web/tool/4.3.0/ovf). A VMware account is needed to download the tool. You can also download [OVF Tool](https://github.com/rgl/ovftool-binaries) the binary files from this link. I installed the version **4.3.0** because of the compatibility issues with vmware hardware versions 4 - 13.
 
 #### Procedure
@@ -210,7 +211,7 @@ The tool can be downloaded from [VMware](https://code.vmware.com/web/tool/4.3.0/
 [Download OVF Tool Binaries](https://github.com/rgl/ovftool-binaries)
 [How to install OVF Tool](https://docs.vmware.com/en/VMware-Telco-Cloud-Operations/1.4.0/deployment-guide-140/GUID-95301A42-F6F6-4BA9-B3A0-A86A268754B6.html)
 
-### 2g. VSCode (Centos UTM)
+### VSCode (Centos UTM)
 Import Microsoft’s GPG Key
 
 	`$ sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc`
@@ -237,7 +238,7 @@ Install Visual Studio Code
 #### Resources
 [Install VSCode](https://servonode.com/install-visual-studio-code-on-fedora-rhel-centos)
 
-### 2h. Python (Centos UTM)
+### Python (Centos UTM)
 - Launch the [Python](https://www.python.org/downloads/) page
 
 	`$ cd /var/tmp/`
