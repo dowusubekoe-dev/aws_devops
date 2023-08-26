@@ -105,6 +105,7 @@ I initially intended to use VirtualBox as the host virtual machine to install Ce
 
 #### Resources
 [Maven vesion](https://maven.apache.org/download.cgi) or 
+
 [Maven Installation steps](https://dyclassroom.com/reference-server/how-to-install-apache-maven-on-centos-server)
 
 ### VMware Workstation Player, VMware Fusion for Mac OS or Linux
@@ -154,10 +155,12 @@ The main goal of this project is to become an expert at using vagrant to provisi
 
 #### Resources
 [Install Git using Apstream](https://idroot.us/install-git-centos-9-stream/)
+
 [Install Git](https://unixcop.com/how-to-install-git-on-centos-9-stream-fedora/)
 
 ### Vagrant (Centos UTM)
 - Go to [Vagrant](https://developer.hashicorp.com/vagrant/downloads) download page
+
 - Right click on your desired operting system and copy the download link
 
 	`$ sudo dnf install https://releases.hashicorp.com/vagrant/2.x.x/vagrant_2.x.x_x86_64.rpm`
@@ -175,6 +178,10 @@ OR
 
 	`$ vagrant plugin install vagrant-vmware-esxi`
 
+	`$ sudo wget https://raw.github.com/kura/vagrant-bash-completion/master/etc/bash_completion.d/vagrant -O /etc/bash_completion.d/vagrant`
+
+	`$ source ~/.bashrc`
+
 - **VMware Utility (Centos UTM)**
 - Open the termial and run command
 
@@ -188,10 +195,15 @@ OR
 
 	`$ sudo dnf install /var/tmp/vagrant-vmware-utility-1.0.22-1.x86_64.rpm`
 
+
 #### Resources
 [Vagrant Installation](https://developer.hashicorp.com/vagrant/downloads)
+
 [VMware Utility](https://developer.hashicorp.com/vagrant/downloads/vmware)
+
 [Vagrant VMware ESXi Plugin Configuration](https://github.com/josenk/vagrant-vmware-esxi)
+
+[Vagrant Autocomplete Install](https://github.com/kura/kura.gg/blob/main/content/pages/vagrant-bash-completion.rst#debian-ubuntu)
 
 ### OVF Tool for VMware ESXi (Centos UTM)
 The tool can be downloaded from [VMware](https://code.vmware.com/web/tool/4.3.0/ovf). A VMware account is needed to download the tool. You can also download [OVF Tool](https://github.com/rgl/ovftool-binaries) the binary files from this link. I installed the version **4.3.0** because of the compatibility issues with vmware hardware versions 4 - 13.
@@ -262,6 +274,7 @@ Install Visual Studio Code
 
 #### Resources
 [Python Download](https://www.python.org/downloads/)
+
 [Install Python](https://idroot.us/install-python-centos-9-stream/)
 
 ### AWS CLI
@@ -313,6 +326,14 @@ The steps below outlines the basic steps in the Vagrant architecture:
 - Start the virtual machine.
 - Access the virtual machine using SSH, RDP, or other methods.
 
+### Creating the First VM
+- Create a directory with any of name of your choice. E.g **devops_projects** with a sub-directories of project names
+- Visit the [Vagrant Cloud Boxes](https://app.vagrantup.com/boxes/search) and filter boxes according to hosted providers.
+For this project, I focused on **vmware_desktop** and **vmware_workstation**.
+- Navigate to the sub directory for your project and run
+	`$ vagrant init <box name>`
+In order for the Vagrantfile to work with VMware_ESXi, I found a github project by [Josenk](https://github.com/josenk/vagrant-vmware-esxi) that better explained the configurtions for VMware ESXi so I used it and made modifications. My customized [Vagrantfile](/Vagrantfile) can be found in the root of this repository.
+
 ### Vagrant commands
 There are several Vagrant commands which you can use to control your box.
 
@@ -332,18 +353,25 @@ Some of the important ones are:
 
 **`vagrant snapshot`** : Take a snapshot of the current box	
 
-### Creating the First VM
-- Create a directory with any of name of your choice. E.g **devops_projects** with a sub-directories of project names
-- Visit the [Vagrant Cloud Boxes](https://app.vagrantup.com/boxes/search) and filter boxes according to hosted providers.
-For this project, I focused on **vmware_desktop** and **vmware_workstation**.
-- Navigate to the sub directory for your project and run
-	`$ vagrant init <box name>`
-In order for the Vagrantfile to work with VMware_ESXi, I found a github project by [Josenk](https://github.com/josenk/vagrant-vmware-esxi) that better explained the configurtions for VMware ESXi so I used it and made modifications.
+
 
 #### Resources
 [Vagrant Documentaion](https://developer.hashicorp.com/vagrant/tutorials/getting-started/getting-started-index)
+
+[Josenk VMware ESXi template](https://github.com/josenk/vagrant-vmware-esxi)
+
+[Vagrant Cloud Boxes]( https://app.vagrantup.com/boxes/search)
+
 
 
 
 
 # Phase 4: Linux Administration
+
+## Commands
+
+## Files
+
+## Softwares
+
+## Servers
