@@ -362,7 +362,9 @@ The steps below outlines the basic steps in the Vagrant architecture:
 - Visit the [Vagrant Cloud Boxes](https://app.vagrantup.com/boxes/search) and filter boxes according to hosted providers.
 For this project, I focused on **vmware_desktop** and **vmware_workstation**.
 - Navigate to the sub directory for your project and run
+
 	`$ vagrant init <box name>`
+	
 In order for the Vagrantfile to work with VMware_ESXi, I found a github project by [Josenk](https://github.com/josenk/vagrant-vmware-esxi) that better explained the configurtions for VMware ESXi so I used it and made modifications. My customized [Vagrantfile](/Vagrantfile) can be found in the root of this repository.
 
 ### Vagrant commands
