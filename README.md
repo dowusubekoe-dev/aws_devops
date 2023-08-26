@@ -42,23 +42,48 @@ I chose to concentrate on using Linux and MacOS as my operating systems so that 
 
 I initially intended to use VirtualBox as the host virtual machine to install Centos-9-Stream as the guest operating system, but I changed my mind over disk space issues. Instead, I used [𝗨𝗧𝗠](https://mac.getutm.app) on my MacBook Pro to have Centos-9-Stream installed successfully.
 
-# Phase 2: Centos 9 Stream on UTM Platform Specification
+# Phase 2: Centos 9 Stream installation on UTM Platform Specification
 
-* Remember to run al the installation in this section with **sudo** *
+* Remember to run all the installation in this section with **sudo** *
 
-- Architecture - x86_64
-- Machine - Standard PC (Q35 + ICH9) (alias of pc-q35-7.2) (q35)
-- Memory - 4GB
-- HDD Size - 50GB
+#### Procedure
+1. Click on the link [UTM](https://mac.getutm.app) to download  app.
+2. Double click on the file to install, accept all the defaults to complete the installation.
+3. Click on the **+** sign at the top to create a VM
+4. Select Virtualize
 
-#### Find the Network Interface for Mac
+![select virtualize](/img/pick-virtualize.png)
+
+5. For operating system, choose Linux and click on `Browse`
+
+6. Upload the downloaded Centos 7 iso and click on `Continue`
+
+7. Set Memory to 4GB or 4096MB and CPU Cores should be 2. Hit `Continue`
+
+8. Set the storage to 80GB (preferably) and hit `Continue`
+
+9. Give a name to the VM and save all settings
+
+10. Right click on the name of the VM and select Edit. Make the following changes;
+
+	**System**
+	- Architecture: x86_64
+	- System: Standard PC (Q35 + ICH9, 2009)(alias of pc-q35-7.2)(q35)
+	- CPU: Select the one that is similar to your laptop specification
+
+	**Display**
+	- Emulated Display Card: virtio-gpu-pci
+	- Check off "Resize display to window size automatically
+
+Find the Network Interface for Mac
 `$ networksetup -listallhardwareports`
 
  -> About This Mac -> More Info... -> System Report...
 
 `$ ioreg -r -n ARPT | grep IOName`
 
-- Network - Bridged (Advanced) : This should be tied to the MacBook network interface (**en0**) and the Emulated Network Card of the ESXi server (**rtl8139**)
+- Network - Bridged (Advanced) : This should be tied to the MacBook network interface (`en0`) and the Emulated Network Card of the ESXi server (`rtl8139`)
+
 
 ### Install JDK8 but I recommend JDK11 (Centos UTM)
 - Open the termial and type the following commands
@@ -212,9 +237,11 @@ The tool can be downloaded from [VMware](https://code.vmware.com/web/tool/4.3.0/
 - Go to the browser by clicking on this link [VMware OVF Tool v4.3.0](https://developer.vmware.com/web/tool/4.3.0/ovf/)
 - Download and navigate to the folder it was saved to
 - Make the installation file executable by running this command
+
 	`$ chmod +x VMware-ovftool-4.3.0-10104578-lin.x86_64.bundle`
 
 - Execute the file using the command below
+
 	`$ ./VMware-ovftool-4.3.0-10104578-lin.x86_64.bundle`
 
 - Accept the End User License Agreement to continue.
@@ -326,6 +353,10 @@ The steps below outlines the basic steps in the Vagrant architecture:
 - Start the virtual machine.
 - Access the virtual machine using SSH, RDP, or other methods.
 
+### Installed and configured ESXi
+
+![Installation of ESXi host completed](/img/esxi-details.png)
+
 ### Creating the First VM
 - Create a directory with any of name of your choice. E.g **devops_projects** with a sub-directories of project names
 - Visit the [Vagrant Cloud Boxes](https://app.vagrantup.com/boxes/search) and filter boxes according to hosted providers.
@@ -351,9 +382,11 @@ Some of the important ones are:
 
 **`vagrant destroy`** : Destroy the current box. By running this command, you will lose any data stored on the box
 
-**`vagrant snapshot`** : Take a snapshot of the current box	
+**`vagrant snapshot`** : Take a snapshot of the current box
 
+### Provisioned VM in ESXi host
 
+![First provisioned VM](/img/esxi-host.png)
 
 #### Resources
 [Vagrant Documentaion](https://developer.hashicorp.com/vagrant/tutorials/getting-started/getting-started-index)
@@ -361,17 +394,3 @@ Some of the important ones are:
 [Josenk VMware ESXi template](https://github.com/josenk/vagrant-vmware-esxi)
 
 [Vagrant Cloud Boxes]( https://app.vagrantup.com/boxes/search)
-
-
-
-
-
-# Phase 4: Linux Administration
-
-## Commands
-
-## Files
-
-## Softwares
-
-## Servers
