@@ -52,7 +52,7 @@ Vagrant.configure('2') do |config|
   config.vm.provider :vmware_esxi do |esxi|
 
     #  REQUIRED!  ESXi hostname/IP
-    esxi.esxi_hostname = '192.168.1.35'
+    esxi.esxi_hostname = 'ip address of esxi host'
 
     #  ESXi username
     esxi.esxi_username = 'root'
