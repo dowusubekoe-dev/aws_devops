@@ -249,6 +249,7 @@ The tool can be downloaded from [VMware](https://code.vmware.com/web/tool/4.3.0/
 
 #### Resources
 [Download OVF Tool Binaries](https://github.com/rgl/ovftool-binaries)
+
 [How to install OVF Tool](https://docs.vmware.com/en/VMware-Telco-Cloud-Operations/1.4.0/deployment-guide-140/GUID-95301A42-F6F6-4BA9-B3A0-A86A268754B6.html)
 
 ### VSCode (Centos UTM)
