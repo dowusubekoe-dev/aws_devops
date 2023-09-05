@@ -104,7 +104,7 @@ Find the Network Interface for Mac
 
 	`$ cd /var/tmp`
 
-	`$ https://dlcdn.apache.org/maven/maven-3/3.9.4/binaries/apache-maven-3.9.4-bin.zip`
+	`$ wget https://dlcdn.apache.org/maven/maven-3/3.9.4/binaries/apache-maven-3.9.4-bin.zip`
 
 	`$ unzip apache-maven-3.9.4-bin.zip`
 
