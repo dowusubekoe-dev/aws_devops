@@ -51,7 +51,7 @@ Vagrant.configure('2') do |config|
     #  REQUIRED!  ESXi hostname/IP
     #    You MUST specify a esxi_hostname or IP, uless you
     #    were lucky enough to name your esxi host 'esxi'.  :-)
-    esxi.esxi_hostname = '192.168.1.35'
+    esxi.esxi_hostname = 'esxi-host ip'
 
     #  ESXi username
     #    Default is 'root'.
