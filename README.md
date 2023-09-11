@@ -391,9 +391,28 @@ Some of the important ones are:
 
 ![First provisioned VM](/img/esxi-host.png)
 
+### Setup, Provision and Deploy a Webserver on Centos (httpd)
+- Installed **httpd** on the Centos 9 virtual machine
+`$ yum install httpd wget vim unzip zip -y`
+- Start and enable **httpd**
+`$ systemctl start httpd` and `$ systemctl enable httpd`
+- Navigate to **/var/www/html** and create the *index.html* file. Also add a sample text, save and close.
+**Note:** The *httpd* service needs to be restarted everytime changes are made on the *index.html* file.
+- Download the [**HTML Template**](https://www.tooplate.com)
+		- Right click on page select **"Inspect"**
+		- Click on the **Download** button and select the **Network** tab from the **Inspect** dialog
+		- Next go to **Headers** and look for the link that has the full path for the download and copy it.
+		- Go to the Centos server and use the **wget** command with the copied URL to download the template into the **/tmp** directory
+		- Run the **unzip** command in the /tmp directory
+		- Navigate to the HTML template folder and run `$ cp -r /var/www/html` to copy the entire content.
+		- Stop and disable **firewalld** services `$ systemctl stop firewalld` and `$ systemctl disable firewalld` 
+- Installed **LAMP stack** on the Ubuntu virtual machine
+
 #### Resources
 [Vagrant Documentaion](https://developer.hashicorp.com/vagrant/tutorials/getting-started/getting-started-index)
 
 [Josenk VMware ESXi template](https://github.com/josenk/vagrant-vmware-esxi)
 
 [Vagrant Cloud Boxes]( https://app.vagrantup.com/boxes/search)
+
+[Vagrant Shell Provisioner](https://developer.hashicorp.com/vagrant/docs/provisioning/shell)
