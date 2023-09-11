@@ -400,23 +400,24 @@ Some of the important ones are:
 **Note:** The *httpd* service needs to be restarted everytime changes are made on the *index.html* file.
 - Download the [**HTML Template**](https://www.tooplate.com)
 
-		- Right click on page select **"Inspect"**
+    - Right click on page select **"Inspect"**
 
-		- Click on the **Download** button and select the **Network** tab from the **Inspect** dialog
+    - Click on the **Download** button and select the **Network** tab from the **Inspect** dialog
 
-		- Next go to **Headers** and look for the link that has the full path for the download and copy it.
+    - Next go to **Headers** and look for the link that has the full path for the download and copy it.
 
-		- Go to the Centos server and use the **wget** command with the copied URL to download the template into the **/tmp** directory
+    - Go to the Centos server and use the **wget** command with the copied URL to download the template into the **/tmp** directory
 
-		- Run the **unzip** command in the /tmp directory
+    - Run the **unzip** command in the /tmp directory
 
-		- Navigate to the HTML template folder and run `$ cp -r /var/www/html` to copy the entire content.
+    - Navigate to the HTML template folder and run `$ cp -r /var/www/html` to copy the entire content.
 
-		- Stop and disable **firewalld** services `$ systemctl stop firewalld` and `$ systemctl disable firewalld`
+    - Stop and disable **firewalld** services `$ systemctl stop firewalld` and `$ systemctl disable firewalld`
  
 - Installed **LAMP stack** on the Ubuntu virtual machine
 
 #### Resources
+
 [Vagrant Documentaion](https://developer.hashicorp.com/vagrant/tutorials/getting-started/getting-started-index)
 
 [Josenk VMware ESXi template](https://github.com/josenk/vagrant-vmware-esxi)
