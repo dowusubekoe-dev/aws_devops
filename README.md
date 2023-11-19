@@ -594,8 +594,6 @@ Common arp command usages:
 | db01              | ether  | 08:00:27:f3:fa:7a   | C     |      | enp0s8 |
 | _gateway          | ether  | 52:54:00:12:35:02   | C     |      | enp0s3 |
 
-
-
 The __mtr__ (My TraceRoute) is a network diagnostic tool that combines the functionality of traceroute and ping. It provides a real-time view of the network path between your computer and a destination IP address, showing the latency (round-trip time) and packet loss at each hop.
 
 ```
@@ -677,6 +675,95 @@ $ telnet 192.168.56.42 3306
 | Microsoft SQL Server| 1433                    | TCP        | Microsoft SQL Server                     |
 
 
+## Containers
+
+A __container__ is a standard unit of software that packages up code and all its dependencies so the application runs quickly and reliably from one computing environment to another.
+
+### Docker
+
+It is a container runtime environment for developing, shipping, and running applications.
+
+Docker Containers Are Everywhere: Linux, Windows, Data center, Cloud, Serverless, etc.
+
+A Docker container image is a lightweight, standalone, executable package of software that includes everything needed to run an application: code, runtime, system tools, system libraries and settings.
+
+Docker containers – images become containers when they run on Docker Engine. Docker containers are created from Docker Images.
+
+![docker-architecture](./img/docker-architecture.png)
+
+Available for both Linux and Windows-based applications, containerized software will always run the same, regardless of the infrastructure.
+
+Docker provides the ability to package and run an application in a loosely isolated environment called a container.
+
+__Docker Daemon:__
+
+Explanation: The Docker Daemon is like a background process or service that manages Docker containers on a system.
+Simple Sentence: The Docker Daemon is the behind-the-scenes manager that handles Docker containers.
+
+__Docker Client:__
+
+Explanation: The Docker Client is a command-line tool or interface that allows users to interact with the Docker Daemon.
+Simple Sentence: The Docker Client is the tool you use to give commands and control Docker.
+
+__Docker Desktop:__
+
+Explanation: Docker Desktop is an application for Windows and macOS that provides a user-friendly environment for using Docker on your computer.
+Simple Sentence: Docker Desktop is like a user-friendly app that makes Docker easy to use on your computer.
+
+__Docker Registries: (hub.docker.com)__
+
+Explanation: Docker Registries are like online repositories where Docker images (pre-built containers) are stored and can be shared.
+Simple Sentence: Docker Registries are places on the internet where people keep and share their Docker containers.
+
+__Docker Objects:__
+
+Explanation: Docker Objects refer to the fundamental entities managed by Docker, including containers, images, volumes, networks, etc.
+Simple Sentence: Docker Objects are the basic building blocks like containers and images that Docker manages for you.
+
+
+### What are Microservices?
+Microservices are an architectural and organizational approach to software development where software is composed of small independent services that communicate over well-defined APIs. These services are owned by small, self-contained teams.
+
+Microservices architectures make applications easier to scale and faster to develop, enabling innovation and accelerating time-to-market for new features.
+
+Monolithic architecture is like having everything under one roof—it's a single, tightly integrated application. It's simpler to develop and test, but scaling can be a headache. Imagine trying to upgrade a whole building when you just want to change a lightbulb!
+
+On the other hand, microservices break down the application into small, independent services. It's like having a bunch of modular units that can be developed, deployed, and scaled independently. It's great for scalability and fault isolation, but the complexity of managing a distributed system can keep you on your toes.
+
+#### Monolithic vs. Microservices Architecture
+With monolithic architectures, all processes are tightly coupled and run as a single service. This means that if one process of the application experiences a spike in demand, the entire architecture must be scaled. Adding or improving a monolithic application’s features becomes more complex as the code base grows. This complexity limits experimentation and makes it difficult to implement new ideas. Monolithic architectures add risk for application availability because many dependent and tightly coupled processes increase the impact of a single process failure.
+
+With a microservices architecture, an application is built as independent components that run each application process as a service. These services communicate via a well-defined interface using lightweight APIs. Services are built for business capabilities and each service performs a single function. Because they are independently run, each service can be updated, deployed, and scaled to meet demand for specific functions of an application.
+
+#### Characteristics of Microservices
+__Autonomous__
+Each component service in a microservices architecture can be developed, deployed, operated, and scaled without affecting the functioning of other services. Services do not need to share any of their code or implementation with other services. Any communication between individual components happens via well-defined APIs.
+
+__Specialized__
+Each service is designed for a set of capabilities and focuses on solving a specific problem. If developers contribute more code to a service over time and the service becomes complex, it can be broken into smaller services.
+
+
+#### Benefits of Microservices
+
+__Agility__
+Microservices foster an organization of small, independent teams that take ownership of their services. Teams act within a small and well understood context, and are empowered to work more independently and more quickly. This shortens development cycle times. You benefit significantly from the aggregate throughput of the organization.
+
+__Flexible Scaling__
+Microservices allow each service to be independently scaled to meet demand for the application feature it supports. This enables teams to right-size infrastructure needs, accurately measure the cost of a feature, and maintain availability if a service experiences a spike in demand.
+
+__Easy Deployment__
+Microservices enable continuous integration and continuous delivery, making it easy to try out new ideas and to roll back if something doesn’t work. The low cost of failure enables experimentation, makes it easier to update code, and accelerates time-to-market for new features.
+
+__Technological Freedom__
+Microservices architectures don’t follow a “one size fits all” approach. Teams have the freedom to choose the best tool to solve their specific problems. As a consequence, teams building microservices can choose the best tool for each job.
+
+__Reusable Code__
+Dividing software into small, well-defined modules enables teams to use functions for multiple purposes. A service written for a certain function can be used as a building block for another feature. This allows an application to bootstrap off itself, as developers can create new capabilities without writing code from scratch.
+
+__Resilience__
+Service independence increases an application’s resistance to failure. In a monolithic architecture, if a single component fails, it can cause the entire application to fail. With microservices, applications handle total service failure by degrading functionality and not crashing the entire application.
+
+
 #### Resources
 
 [Vagrant Documentaion](https://developer.hashicorp.com/vagrant/tutorials/getting-started/getting-started-index)
@@ -686,3 +773,15 @@ $ telnet 192.168.56.42 3306
 [Vagrant Cloud Boxes]( https://app.vagrantup.com/boxes/search)
 
 [Vagrant Shell Provisioner](https://developer.hashicorp.com/vagrant/docs/provisioning/shell)
+
+[Use containers](https://www.docker.com/resources/what-container/)
+
+[Docker Overview](https://docs.docker.com/get-started/overview/)
+
+[Docker Hub](https://hub.docker.com/search?q=)
+
+[Microservices](https://aws.amazon.com/microservices/)
+
+[Bash Scripting](https://www.visualpath.in/devopstutorials/devops)
+
+[AWS CLI Command Reference](https://awscli.amazonaws.com/v2/documentation/api/latest/index.html)
