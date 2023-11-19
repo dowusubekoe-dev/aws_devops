@@ -391,28 +391,291 @@ Some of the important ones are:
 
 ![First provisioned VM](/img/esxi-host.png)
 
-### Setup, Provision and Deploy a Webserver on Centos (httpd)
-- Installed **httpd** on the Centos 9 virtual machine
-`$ yum install httpd wget vim unzip zip -y`
-- Start and enable **httpd**
-`$ systemctl start httpd` and `$ systemctl enable httpd`
-- Navigate to **/var/www/html** and create the *index.html* file. Also add a sample text, save and close.
-**Note:** The *httpd* service needs to be restarted everytime changes are made on the *index.html* file.
-- Download the [**HTML Template**](https://www.tooplate.com)
 
-    - Right click on page select **"Inspect"**
+## Computer Networking
 
-    - Click on the **Download** button and select the **Network** tab from the **Inspect** dialog
+### OSI Model
+The basic elements of layered model are
+ - services
+ - protocols
+ - and interfaces
 
-    - Next go to **Headers** and look for the link that has the full path for the download and copy it.
+* A __service__ is a set of actions that a layer offers to another (higher) layer.
+* A __protocol__ is a set of rules that a layer uses to exchange information.
+* An __interface__ is the communication between the layers
 
-    - Go to the Centos server and use the **wget** command with the copied URL to download the template into the **/tmp** directory
+### TCP and UDP
+| Feature                 | TCP                                    | UDP                                 |
+|-------------------------|----------------------------------------|-------------------------------------|
+| **Connection**          | Connection-oriented                    | Connectionless                      |
+| **Reliability**         | Reliable, ensures data delivery        | Unreliable, no guaranteed delivery  |
+| **Ordering**            | Maintains order of data packets        | No order guarantee                  |
+| **Error Checking**      | Error checking and correction          | Limited error checking              |
+| **Overhead**            | Higher overhead due to connection      | Lower overhead                      |
+| **Usage**               | Suitable for applications requiring reliable and accurate data transfer    | Suitable for real-time applications with low latency |
 
-    - Run the **unzip** command in the /tmp directory
 
-    - Navigate to the HTML template folder and run `$ cp -r /var/www/html` to copy the entire content.
+#### OSI Layer
 
-    - Stop and disable **firewalld** services `$ systemctl stop firewalld` and `$ systemctl disable firewalld`
+  * Physical Layer
+  * Data Link Layer
+  * Network Layer
+  * Transport Layer
+  * Session Layer
+  * Presentation Layer
+  * Application Layer
+
+| Layer | Layer Name         | Devices Used                         | Ports Used                 |
+|-------|--------------------|--------------------------------------|----------------------------|
+| 7     | Application Layer  | End-user devices(computers, browser) | HTTP,FTP,IRC,SSH,DNS       |
+| 6     | Presentation Layer | OS resides here                      | SSL,SSH,IMAP,FTP,MPEG,JPEG |
+| 5     | Session Layer      | Gateways, Session controllers        | API's,Sockets,WinSock      |
+| 4     | Transport Layer    | Routers, Gateways, Firewalls         | TCP,UDP                    |
+| 3     | Network Layer      | Switches, Routers (Packets)          | IP,ICMP,IPSec,IGMP         |
+| 2     | Data Link Layer    | Bridges, Switches, NIC (Frames)      | MAC (Media Access Control) |
+| 1     | Physical Layer     | Repeaters, Hubs, Cables              | N/A                        |
+
+
+#### IP Address Classes
+
+| Class | Start Address    | End Address        | Default Subnet Mask  | Purpose                 |
+|-------|------------------|--------------------|----------------------|-------------------------|
+| A     | 1.0.0.0          | 126.255.255.255    | 255.0.0.0            | Large Networks          |
+| B     | 128.0.0.0        | 191.255.255.255    | 255.255.0.0          | Medium Networks         |
+| C     | 192.0.0.0        | 223.255.255.255    | 255.255.255.0        | Small Networks          |
+| D     | 224.0.0.0        | 239.255.255.255    | N/A                  | Multicast Groups        |
+| E     | 240.0.0.0        | 255.255.255.255    | N/A                  | Reserved for Future Use |
+
+
+ - **Class A:** Used for large networks, with the first octet reserved for network identification.
+ - **Class B:** Used for medium-sized networks, with the first two octets reserved for network identification.
+ - **Class C:** Used for small networks, with the first three octets reserved for network identification.
+ - **Class D:** Reserved for multicast groups.
+ - **Class E:** Reserved for experimental purposes and future use.
+
+#### Networking Commands
+
+If you run ```$ ifconfig``` and you get an error, run ```$ sudo apt install net-tools```.
+
+To find the ip address on a machine run
+
+```
+$ ifconfig
+```
+
+OR
+
+```
+$ ip addr show
+```
+
+To ping another machine on the same network from the host, run the following commands
+
+```
+$ vi /etc/hosts
+```
+on your computer (host) and make sure to be in the __INSERT__ mode. Add the other machine ip address and hostname in this format.
+
+```
+$ 192.168.xx.xx hostname
+```
+To confirm that configuration is working run the following command on your machine.
+
+```
+$ ping hostname_of_the_other_machine
+```
+
+__Tracert__ (or traceroute in some systems) is a command-line tool used to trace the route that data takes from your computer to a destination on the internet.
+
+*Imagine you want to send a letter from your house to a friend's house, but you're not sure about the exact path it will take. Tracert is like a magical postman who shows you the route your letter will take, stopping at each post office along the way.*
+
+__tracert__ helps you visualize and troubleshoot the path your data takes through the internet
+
+```
+$ tracert www.google.com
+```
+To find all TCP open ports, run the __netstat__ command. netstat: This command is used to display information about the network connections, routing tables, interface statistics, masquerade connections, etc.
+
+```
+$ netstat -antp
+```
+
+| Proto | Recv-Q | Send-Q | Local Address      | Foreign Address    | State       | PID/Program name       |
+|-------|--------|--------|--------------------|--------------------|-------------|------------------------|
+| tcp   | 0      | 0      | 127.0.0.53:53      | 0.0.0.0:*          | LISTEN      | 572/systemd-resolve    |
+| tcp   | 0      | 0      | 0.0.0.0:22         | 0.0.0.0:*          | LISTEN      | 695/sshd: /usr/sbin    |
+| tcp   | 0      | 0      | 10.0.2.15:22       | 10.0.2.2:52070     | ESTABLISHED | 3077/sshd: vagrant     |
+| tcp   | 0      | 0      | 10.0.2.15:22       | 10.0.2.2:51940     | ESTABLISHED | 2458/sshd: vagrant     |
+| tcp   | 0      | 0      | 10.0.2.15:22       | 10.0.2.2:52251     | ESTABLISHED | 3934/sshd: vagrant     |
+| tcp6  | 0      | 0      | :::80              | :::*               | LISTEN      | 2220/apache2           |
+| tcp6  | 0      | 0      | :::22              | :::*               | LISTEN      | 695/sshd: /usr/sbin    |
+
+The __grep__ coommand can also be used to find the process id of the programs.
+
+```
+$ ps -ef | grep apache2
+```
+
+The command __ss -tunlp__ is used to display detailed information about TCP and UDP network connections, including listening ports and the processes associated with them.
+
+```
+$ ss -tunlp
+```
+
+| Netid | State   | Recv-Q | Send-Q | Local Address:Port       | Peer Address:Port | Process                                                     |
+|-------|---------|--------|--------|--------------------------|-------------------|-------------------------------------------------------------|
+| udp   | UNCONN  | 0      | 0      | 127.0.0.53%lo:53         | 0.0.0.0:*         | users:(("systemd-resolve",pid=572,fd=12))                   |
+| udp   | UNCONN  | 0      | 0      | 10.0.2.15%enp0s3:68      | 0.0.0.0:*         | users:(("systemd-network",pid=570,fd=20))                   |
+| tcp   | LISTEN  | 0      | 4096   | 127.0.0.53%lo:53         | 0.0.0.0:*         | users:(("systemd-resolve",pid=572,fd=13))                   |
+| tcp   | LISTEN  | 0      | 128    | 0.0.0.0:22               | 0.0.0.0:*         | users:(("sshd",pid=695,fd=3))                               |
+| tcp   | LISTEN  | 0      | 511    | *:80                     | *:*               | users:(("apache2",pid=2223,fd=4),("apache2",pid=2222,fd=4),("apache2",pid=2220,fd=4)) |
+| tcp   | LISTEN  | 0      | 128    | [::]:22                  | [::]:*            | users:(("sshd",pid=695,fd=4))                               |
+
+The __nmap__ command is used to scan the ports of another machine in your network.
+
+```
+$ nmap db01 # hostname (db01)
+```
+
+| PORT    | STATE | SERVICE |
+|---------|-------|---------|
+| 22/tcp  | open  | ssh     |
+| 111/tcp | open  | rpcbind |
+| 3306/tcp| open  | mysql   |
+
+The __dig__ command is used to check for DNS look up of a website
+
+```
+$ dig www.google.com
+```
+```m
+; <<>> DiG 9.16.1-Ubuntu <<>> www.google.com
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 391
+;; flags: qr rd ra; QUERY: 1, ANSWER: 6, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 65494
+;; QUESTION SECTION:
+;www.google.com.                        IN      A
+```
+
+| Domain          | Time to Live (TTL) | Record Type  | IP Address       |
+|-----------------|--------------------|--------------|------------------|
+| www.google.com  | 59                 | IN A         | 172.253.63.105   |
+| www.google.com  | 59                 | IN A         | 172.253.63.99    |
+| www.google.com  | 59                 | IN A         | 172.253.63.147   |
+| www.google.com  | 59                 | IN A         | 172.253.63.106   |
+| www.google.com  | 59                 | IN A         | 172.253.63.104   |
+| www.google.com  | 59                 | IN A         | 172.253.63.103   |
+
+The __route -n__ command is used to display the Kernel IP routing table in a numeric format, showing IP addresses and network masks in numeric form rather than resolving them to hostnames or network names.
+
+| Destination    | Gateway       | Genmask         | Flags | Metric | Ref | Use | Iface  |
+|-----------------|---------------|-----------------|-------|--------|-----|-----|--------|
+| 0.0.0.0         | 10.0.2.2      | 0.0.0.0         | UG    | 100    | 0   | 0   | enp0s3 |
+| 10.0.2.0        | 0.0.0.0       | 255.255.255.0   | U     | 0      | 0   | 0   | enp0s3 |
+| 10.0.2.2        | 0.0.0.0       | 255.255.255.255 | UH    | 100    | 0   | 0   | enp0s3 |
+| 192.168.56.0    | 0.0.0.0       | 255.255.255.0   | U     | 0      | 0   | 0   | enp0s8 |
+
+The __arp__ (address resolution protocol) command is commonly used to interact with and display ARP-related information. ARP is used to find the hardware address (MAC address) when only the IP address is known.
+
+The arp command in Linux is used to display and modify the ARP cache.
+Common arp command usages:
+   * arp -a: Display the ARP cache.
+   * arp -s <IP> <MAC>: Add a static ARP entry, associating an IP address with a specific MAC address.
+   * arp -d <IP>: Delete an entry from the ARP cache
+
+| Address           | HWtype | HWaddress           | Flags | Mask | Iface  |
+|-------------------|--------|---------------------|-------|------|--------|
+| 192.168.56.1      | ether  | 0a:00:27:00:00:14   | C     |      | enp0s8 |
+| 10.0.2.3          | ether  | 52:54:00:12:35:03   | C     |      | enp0s3 |
+| db01              | ether  | 08:00:27:f3:fa:7a   | C     |      | enp0s8 |
+| _gateway          | ether  | 52:54:00:12:35:02   | C     |      | enp0s3 |
+
+
+
+The __mtr__ (My TraceRoute) is a network diagnostic tool that combines the functionality of traceroute and ping. It provides a real-time view of the network path between your computer and a destination IP address, showing the latency (round-trip time) and packet loss at each hop.
+
+```
+$ mtr [options] <hostname or IP address>
+```
+| Host                    | Loss% | Snt | Last | Avg  | Best | Wrst | StDev |
+|-------------------------|-------|-----|------|------|------|------|-------|
+| 1. _gateway             | 0.0%  | 285 | 1.5  | 2.0  | 0.5  | 46.1 | 3.2   |
+| 2. 192.168.1.1          | 0.3%  | 285 | 12.7 | 13.4 | 2.6  | 210.1| 23.5  |
+| 3. 10.16.224.1          | 0.3%  | 285 | 17.9 | 24.9 | 10.0 | 190.6| 26.4  |
+| 4. 100.118.74.134       | 0.3%  | 285 | 18.5 | 26.2 | 9.5  | 259.5| 26.6  |
+| 5. 100.120.124.20       | 0.3%  | 285 | 13.8 | 27.0 | 11.8 | 198.2| 26.0  |
+| 6. ashbbprj01-ae2.rd... | 0.0%  | 285 | 37.3 | 31.7 | 15.9 | 248.0| 26.6  |
+| 7. 142.250.167.166      | 0.7%  | 285 | 20.9 | 35.4 | 17.1 | 252.5| 34.6  |
+| 8. 108.170.240.97       | 0.0%  | 285 | 21.9 | 35.1 | 16.6 | 320.7| 34.2  |
+| 9. 108.170.240.112      | 1.1%  | 285 | 23.2 | 37.9 | 17.9 | 261.3| 34.0  |
+|10. 108.170.235.157      | 22.8% | 285 | 22.2 | 38.2 | 18.5 | 242.9| 36.9  |
+|11. (waiting for reply)  |       |     |      |      |      |      |       |
+
+Interpretation:
+
+  * HOST: The target destination or IP address.
+  * Loss%: Packet loss percentage at each hop.
+  * Snt: Number of packets sent.
+  * Last, Avg, Best, Wrst: Latency statistics (in milliseconds) for the last, average, best, and worst round-trip times.
+  * StDev: Standard deviation of round-trip times.
+
+Nmap (Network Mapper) is a powerful and versatile tool used for exploring and mapping networks.
+
+```
+$ nmap db01
+```
+```
+Starting Nmap 7.80 ( https://nmap.org ) at 2023-11-10 12:31 UTC
+Nmap scan report for db01 (192.168.56.42)
+Host is up (0.28s latency).
+Not shown: 997 closed ports
+```
+| PORT     | STATE  | SERVICE |
+|----------|--------|---------|
+| 22/tcp   | open   | ssh     |
+| 111/tcp  | open   | rpcbind |
+| 3306/tcp | open   | mysql   |
+
+* MAC Address: 08:00:27:F3:FA:7A (Oracle VirtualBox virtual NIC)
+* Nmap done: 1 IP address (1 host up) scanned in 2.06 seconds
+
+The __teletype network__ or __telnet__ is a network protocol used to provide text-based communication between devices over a computer network, such as the Internet. 
+```
+$ telnet 192.168.56.42 3306
+```
+
+#### Commonly used Ports
+
+| Service            | Port(s)                  | Protocol   | Description                              |
+|--------------------|--------------------------|------------|------------------------------------------|
+| HTTP               | 80                       | TCP        | Hypertext Transfer Protocol              |
+| HTTPS              | 443                      | TCP        | Secure Hypertext Transfer Protocol       |
+| FTP                | 21                       | TCP        | File Transfer Protocol                   |
+| FTPS (Implicit)    | 990                      | TCP        | FTP over SSL/TLS (Implicit)               |
+| FTPS (Explicit)    | 21 (Control), 989 (Data) | TCP        | FTP over SSL/TLS (Explicit)               |
+| SSH                | 22                       | TCP        | Secure Shell                              |
+| Telnet             | 23                       | TCP        | Telnet                                   |
+| SMTP               | 25                       | TCP        | Simple Mail Transfer Protocol            |
+| POP3               | 110                      | TCP        | Post Office Protocol 3                   |
+| IMAP               | 143                      | TCP        | Internet Message Access Protocol         |
+| DNS                | 53                       | TCP/UDP    | Domain Name System                       |
+| DHCP               | 67 (Server), 68 (Client)| UDP        | Dynamic Host Configuration Protocol      |
+| SNMP               | 161                      | UDP        | Simple Network Management Protocol      |
+| HTTPS (HTTP/2)     | 443                      | TCP        | HTTP over TLS (HTTP/2)                   |
+| RDP                | 3389                     | TCP        | Remote Desktop Protocol                  |
+| MySQL              | 3306                     | TCP        | MySQL Database Server                    |
+| PostgreSQL         | 5432                     | TCP        | PostgreSQL Database Server               |
+| VNC                | 5900                     | TCP        | Virtual Network Computing                |
+| NTP                | 123                      | UDP        | Network Time Protocol                    |
+| LDAP               | 389                      | TCP/UDP    | Lightweight Directory Access Protocol    |
+| HTTPS (HTTP/3)     | 443                      | UDP        | HTTP over QUIC (HTTP/3)                  |
+| SMB                | 445                      | TCP        | Server Message Block                     |
+| Microsoft SQL Server| 1433                    | TCP        | Microsoft SQL Server                     |
+
 
 #### Resources
 
