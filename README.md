@@ -413,8 +413,6 @@ Some of the important ones are:
     - Navigate to the HTML template folder and run `$ cp -r /var/www/html` to copy the entire content.
 
     - Stop and disable **firewalld** services `$ systemctl stop firewalld` and `$ systemctl disable firewalld`
- 
-- Installed **LAMP stack** on the Ubuntu virtual machine
 
 #### Resources
 
