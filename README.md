@@ -52,7 +52,7 @@ I initially intended to use VirtualBox as the host virtual machine to install Ce
 3. Click on the **+** sign at the top to create a VM
 4. Select Virtualize
 
-![select virtualize](/img/pick-virtualize.png)
+![select virtualize](./img/pick-virtualize.png)
 
 5. For operating system, choose Linux and click on `Browse`
 
@@ -128,10 +128,7 @@ Find the Network Interface for Mac
 
 	`$ mvn --version`
 
-#### Resources
-[Maven vesion](https://maven.apache.org/download.cgi) or 
 
-[Maven Installation steps](https://dyclassroom.com/reference-server/how-to-install-apache-maven-on-centos-server)
 
 ### VMware Workstation Player, VMware Fusion for Mac OS or Linux
 You can install any of the aforementioned apps on your laptop or desktop computer if that is how you like to build your infrastructure. I choose to create the local infrastructure for this project using a [VMware ESXi](https://www.vmware.com/products/esxi-and-esx.html) host, hence the need to have an OVF file from VMware Player.
@@ -178,10 +175,6 @@ The main goal of this project is to become an expert at using vagrant to provisi
 
 	`$ git push -u origin main`
 
-#### Resources
-[Install Git using Apstream](https://idroot.us/install-git-centos-9-stream/)
-
-[Install Git](https://unixcop.com/how-to-install-git-on-centos-9-stream-fedora/)
 
 ### Vagrant (Centos UTM)
 - Go to [Vagrant](https://developer.hashicorp.com/vagrant/downloads) download page
@@ -356,7 +349,7 @@ The steps below outlines the basic steps in the Vagrant architecture:
 
 ### Installed and configured ESXi
 
-![Installation of ESXi host completed](/img/esxi-details.png)
+![Installation of ESXi host completed](./img/esxi-details.png)
 
 ### Creating the First VM
 - Create a directory with any of name of your choice. E.g **devops_projects** with a sub-directories of project names
@@ -389,7 +382,7 @@ Some of the important ones are:
 
 ### Provisioned VM in ESXi host
 
-![First provisioned VM](/img/esxi-host.png)
+![First provisioned VM](./img/esxi-host.png)
 
 
 ## Computer Networking
@@ -745,26 +738,320 @@ Each service is designed for a set of capabilities and focuses on solving a spec
 
 #### Benefits of Microservices
 
-__Agility__
+__Agility:-__
 Microservices foster an organization of small, independent teams that take ownership of their services. Teams act within a small and well understood context, and are empowered to work more independently and more quickly. This shortens development cycle times. You benefit significantly from the aggregate throughput of the organization.
 
-__Flexible Scaling__
+__Flexible Scaling:-__
 Microservices allow each service to be independently scaled to meet demand for the application feature it supports. This enables teams to right-size infrastructure needs, accurately measure the cost of a feature, and maintain availability if a service experiences a spike in demand.
 
-__Easy Deployment__
+__Easy Deployment:-__
 Microservices enable continuous integration and continuous delivery, making it easy to try out new ideas and to roll back if something doesn’t work. The low cost of failure enables experimentation, makes it easier to update code, and accelerates time-to-market for new features.
 
-__Technological Freedom__
+__Technological Freedom:-__
 Microservices architectures don’t follow a “one size fits all” approach. Teams have the freedom to choose the best tool to solve their specific problems. As a consequence, teams building microservices can choose the best tool for each job.
 
-__Reusable Code__
+__Reusable Code:-__
 Dividing software into small, well-defined modules enables teams to use functions for multiple purposes. A service written for a certain function can be used as a building block for another feature. This allows an application to bootstrap off itself, as developers can create new capabilities without writing code from scratch.
 
-__Resilience__
+__Resilience:-__
 Service independence increases an application’s resistance to failure. In a monolithic architecture, if a single component fails, it can cause the entire application to fail. With microservices, applications handle total service failure by degrading functionality and not crashing the entire application.
 
 
+#### SSH Key Exchange
+* Login to the master node
+* Run the command ```$ ssh-keygen```. *Enter file in which to save the key (/root/.ssh/id_rsa)*:
+      - Your identification has been saved in __/root/.ssh/id_rsa__
+      - Your public key has been saved in __/root/.ssh/id_rsa.pub__
+* Run ```$ ssh-copy-id webserver_username@web01``` and type in the password
+* Run ```$ ssh webserver_username@web01 uptime``` to test if the SSH key is working
+* Run ```$ cat .ssh/id_rsa``` or ```$ cat .ssh/id_rsa.pub``` to view the details of both the private and public keys.
+
+
+### AWC CLI Commands
+
 #### Resources
+[AWS CLI Command Reference](https://awscli.amazonaws.com/v2/documentation/api/latest/index.html)
+
+__Create VPC__
+```
+$ vpc_id=$(aws ec2 create-vpc --cidr-block 10.0.0.0/18 --query 'Vpc.VpcId' --output text)
+$ aws ec2 create-tags --resources $vpc_id --tags Key=Name,Value=devopTutorials
+```
+```
+$ aws ec2 create-vpc \
+    --cidr-block 10.0.0.0/16 \
+    --tag-specification ResourceType=vpc,Tags=[{Key=Name,Value=MyVpc}]
+```
+```
+$ aws ec2 create-vpc \
+    --cidr-block 10.0.0.0/16 \
+    --amazon-provided-ipv6-cidr-block
+```
+__Create Subnet__
+```
+$ subnet_id=$(aws ec2 create-subnet --vpc-id $vpc_id --cidr-block 10.0.0.0/24 --query 'Subnet.SubnetId' --output text)
+$ aws ec2 create-tags --resources $subnet_id --tags Key=Name,Value=devopTutorials-Subnet
+```
+__Update or Authorize Security Group__
+```
+$  aws ec2 authorize-security-group-ingress --group-id sg-05d5b107674a1456c --protocol tcp --port 22 --cidr 10.0.0.0/16
+```
+__Delete VPC and Subnet__
+```
+$ aws ec2 delete-subnet --subnet-id $(aws ec2 describe-subnets --query 'Subnets[*].SubnetId' --output text)
+$ aws ec2 delete-vpc --vpc-id $(aws ec2 describe-vpcs --query 'Vpcs[*].VpcId' --output text)
+```
+__Attach Existing Keypair to Existing Instance__
+```
+$ aws ec2 associate-key-pair --instance-id i-0391decc4a122083c --key-name dev-env-key
+```
+__Create a Default VPC__
+```
+$  aws ec2 create-default-vpc
+$  aws ec2 create-vpc --cidr-block 10.0.0.0/16 --tag-specifications 'ResourceType=vpc,Tags=[{Key=Name,Value=devopTutorials}]'
+$  aws ec2 create-tags --resources vpc-0ec7b474b51bab8cb --tags Key=Name,Value=devopsTutorials
+```
+__To launch a new EC2 instance:__
+```
+$ aws ec2 run-instances --image-id ami-0fc5d935ebf8bc3bc --instance-type t2.micro --key-name dev-env-key --vpc-id vpc-vpc-0ec7b474b51bab8cb
+$ aws ec2 run-instances --image-id ami-0fc5d935ebf8bc3bc --instance-type t2.micro --key-name dev-env-key --subnet-id subnet-0768ab59ae60d78a7 --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=devoptut-ec2}]'
+```
+__List S3 Buckets:__
+```
+$ aws s3 ls
+```
+__To copy a local file to an S3 bucket:__
+```
+$ aws s3 cp local-file.txt s3://your-bucket/
+```
+__To list all EC2 instances in your account:__
+```
+$ aws ec2 describe-instances
+```
+__Create an empty General Purpose SSD (gp2) volume__
+```
+$ aws ec2 create-volume \
+    --volume-type gp2 \
+    --size 80 \
+    --availability-zone us-east-1a
+```
+__Identify unattached AWS Elastic IP__
+```
+$ aws ec2 describe-addresses --query "Addresses[?AssociationId==null]"
+```
+
+__Deregister AMI instance__
+```
+aws ec2 deregister-image --image-id ami-06b929c05d7301e1a
+```
+
+__Delete EBS Snapshot__
+```
+aws ec2 delete-snapshot --snapshot-id snap-0b616e246ea4da7ec
+```
+
+
+# Phase 4: Amazon Web Service (VPC, IAM, EC2, EBS Volumes, ELB, S3, CloudWatch, RDS, AutoScaling, Route53)
+Cloud computing is the on-demand delivery of IT resources over the internet with pay-as-you-go pricing. You can access technology services such as computing power, storage, and databases, on as needed basis from a cloud provider (AWS, Azure, GPC)
+
+### Types of Cloud Computing Services
+   * Infrastructure as a Service (IaaS)
+       - Infrastructure as a service (IaaS) is a cloud computing service model
+       - Computing resources are supplied by a cloud services provider. 
+       - The IaaS vendor provides the storage, network, servers, and virtualization (which mostly refers, in this case, to emulating computer hardware)
+
+   * Platform as a Service (PaaS)
+       - A cloud computing model that provides customers a complete cloud platform—hardware, software, and infrastructure
+       - For developing, running, and managing applications without the cost, complexity, and inflexibility
+       - Comes with building and maintaining that platform on-premises
+
+   * Software as a Service (SaaS)
+       - Software licensing and delivery model in which software is licensed on a subscription basis and is centrally hosted
+       - SaaS is also known as on-demand software, web-based software, or web-hosted software.
+
+### EC2 Instance Creation for a Project
+* Requirement Gathering
+      - OS => Ubuntu, CentOS
+      - Size => RAM, CPU, Network etc
+      - Storage size => 10gigs
+      - Project
+      - Services/Apps Running => SSH, HTTP, MySQL
+      - Environment => Dev, QA, Stagging, Prod
+      - Login User/Owner
+
+* Create Key pairs
+* Create the Security Group (Firewalls)
+* Launch Instance
+
+### Inbound & Outbound
+__Inbound__ => Traffic coming from outside on the __instance__
+- Type: HTTP, Protocol: TCP, Port: 22, Source: Custom, Anywhere IPv4  (0.0.0.0/0)
+
+Outbound => Traffic going from __instance__ to outside
+- Type: HTTP, Protocol: TCP, Port: 80, Source: Custom, My IP (Public IP from ISP)
+
+ #### Configuring Inbound
+      - Click on the __EC2__ instance name and go to __Security Groups__
+      - Click on __Edit Inbound rules__ and add the following rules by clicking __Add rule__
+
+        - Type: All traffic, Protocol: All, Port: All, Source: Anywhere IPv4, (0.0.0.0/0)
+        - Type: All traffic, Protocol: All, Port: All, Source: Anywhere IPv6,  (::/0)
+
+                                    OR
+
+        - Type: SSH, Protocol: TCP, Port: 22, Source: Custom, My IP (Public IP from ISP)
+        - Type: HTTP, Protocol: TCP, Port: 80, Source: Custom, Anywhere IPv4  (0.0.0.0/0)
+        - Type: HTTP, Protocol: TCP, Port: 80, Source: Custom, Anywhere IPv6  (::/0)
+        - Type: HTTP, Protocol: TCP, Port: 80, Source: Custom, My IP (Public IP from ISP)
+
+### Setting up Web Server on EC2 Instance (CentOS)
+ * Add __websetup.sh__ file
+      ```sh
+      sudo yum update -y
+      sudo yum install -y httpd wget unzip
+      wget https://www.tooplate.com/zip-templates/2132_clean_work.zip
+      unzip 2128_tween_agency.zip
+      sudo cp -r 2128_tween_agency/* /var/www/html/
+      sudo systemctl start httpd
+      sudo systemctl enable httpd
+      ```
+ * Add __firewallsetup.sh__ file
+      ```sh
+      sudo yum install firewalld
+      sudo systemctl start firewalld
+      sudo systemctl enable firewalld
+      sudo firewall-cmd --zone=public --add-service=http --permanent
+      sudo firewall-cmd --reload
+      ```
+
+### Setting up Web Server on EC2 Instance (Ubuntu)
+ * Add __websetup.sh__ file
+      ```sh
+      sudo apt-get update -y
+      sudo apt-get install -y apache2 wget unzip
+      wget https://www.tooplate.com/zip-templates/2132_clean_work.zip
+      unzip 2128_tween_agency.zip
+      sudo cp -r 2128_tween_agency/* /var/www/html/
+      sudo systemctl start apache2
+      sudo systemctl enable apache2
+      
+      ```
+ * Add __firewallsetup.sh__ file
+      ```sh
+      sudo yum install firewalld
+      sudo systemctl start firewalld
+      sudo systemctl enable firewalld
+      sudo firewall-cmd --zone=public --add-service=http --permanent
+      sudo firewall-cmd --reload
+      ```
+
+### Virtual private clouds (VPC)
+A VPC is a virtual network that closely resembles a traditional network that you'd operate in your own data center. After you create a VPC, you can add subnets.
+
+__Subnets__
+
+A subnet is a range of IP addresses in your VPC. A subnet must reside in a single Availability Zone. After you add subnets, you can deploy AWS resources in your VPC.
+
+__IP addressing__
+
+You can assign IP addresses, both IPv4 and IPv6, to your VPCs and subnets. You can also bring your public IPv4 and IPv6 GUA addresses to AWS and allocate them to resources in your VPC, such as EC2 instances, NAT gateways, and Network Load Balancers.
+
+__Routing__
+
+Use route tables to determine where network traffic from your subnet or gateway is directed.
+
+__Gateways and endpoints__
+
+A gateway connects your VPC to another network. For example, use an internet gateway to connect your VPC to the internet. Use a VPC endpoint to connect to AWS services privately, without the use of an internet gateway or NAT device. Endpoints can help reduce NAT gateway charges and improve security by accessing S3 directly from the VPC. By default, full access policy is used. You can customize this policy at any time.
+
+__Peering connections__
+
+Use a VPC peering connection to route traffic between the resources in two VPCs.
+
+__Traffic Mirroring__
+
+Copy network traffic from network interfaces and send it to security and monitoring appliances for deep packet inspection.
+
+__Transit gateways__
+
+Use a transit gateway, which acts as a central hub, to route traffic between your VPCs, VPN connections, and AWS Direct Connect connections.
+
+__VPC Flow Logs__
+
+A flow log captures information about the IP traffic going to and from network interfaces in your VPC.
+
+__VPN connections__
+
+Connect your VPCs to your on-premises networks using AWS Virtual Private Network (AWS VPN).
+
+
+### Setting the Elastic IP 
+An Elastic IP address is a static, public IPv4 address designed for dynamic cloud computing. You can associate an Elastic IP address with any instance or network interface in any VPC in your account.
+
+To use an Elastic IP address, you first allocate it for use in your account. Then, you can associate it with an instance or network interface in your VPC. Your Elastic IP address remains allocated to your AWS account until you explicitly release it.
+
+### Subnets
+Use __public subnets__ for web applications that need to be publicly accessible over the internet.
+
+Use __private subnets__ to secure backend resources that don't need public access.
+
+### EBS Volumes - Elastic Beanstalk
+An Amazon EBS volume is a durable, __block-level storage__ device that you can attach to your instances. After you attach a volume to an instance, you can use it as you would use a physical hard drive.
+Runs the EC2 OS, store data from database, file data
+EBS should be placed in a specific __AZ__ in order to replicate within the AZ to protect from failure.
+EC2 instance should also be located in the same __AZ__ as the __EBS__ volume
+
+#### Configuring EBS in AWS
+EBS volumes are __virtual hard disk__ for __EC2 instances__. Provides you the following;
+* EBS Volume (virtual hard disk)
+* Snapshot (Backup of EBS volume)
+
+- EBS Types
+     - General Purpose (SSD): Generally used for most workloads
+     - Provisioned IOPS: Specifically for large databases
+     - Throughput Optimized HD: For big data and data warehouse jobs
+     - Cold HDD: For file servers
+     - Magnetic: Generally for Backups and Archives
+
+##### Project
+- Create a Centos EC2 instance in AWS
+-
+
+### ELB Types - Elastic Load Balancer
+__Load Balancer__ serves as a single access point to multiple servers deployed for an application in the cloud. 
+
+### Load Balancer Ports
+- Frontend Port: Listens from the User Requests on this port __AKA listeners.__ E.g. 80, 443, 25
+- Backend Ports: Services running on OS listening on this port. E.g. 80, 443, 8080
+
+__AWS ELB__ distributes incoming application or network traffic acrosss multiple targets, such as Amazon EC2 instance, containers, and IP addresses, in multiple AZs
+
+### Types of Load Balancers
+- __Application Load Balancer__
+
+routes traffic based on advanced application level information that includes the content of the request. Happens at Layer 7 of the OSI model
+
+- __Network Load Balancer__
+
+Also known as the __layer 4__ load balancer. Can handle millions of requests per second. Because the translated endpoint has dynamic ip address, it is recommended to attach an Elastic to the Network Load Balancer to have a static ip.
+
+
+- __Classic Load Balancer:__
+
+ routes traffic based on either application or network level information. Ideal for simple load balancing of traffic across multiple EC2 instances
+
+
+
+
+#### Resources
+
+[Install Git using Apstream](https://idroot.us/install-git-centos-9-stream/)
+
+[Install Git](https://unixcop.com/how-to-install-git-on-centos-9-stream-fedora/)
+
+[Maven vesion](https://maven.apache.org/download.cgi) 
+ or 
+[Maven Installation steps](https://dyclassroom.com/reference-server/how-to-install-apache-maven-on-centos-server)
 
 [Vagrant Documentaion](https://developer.hashicorp.com/vagrant/tutorials/getting-started/getting-started-index)
 
