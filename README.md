@@ -1154,8 +1154,6 @@ Also known as the __layer 4__ load balancer. Can handle millions of requests per
  routes traffic based on either application or network level information. Ideal for simple load balancing of traffic across multiple EC2 instances
 
 
-
-
 #### Resources
 
 [Install Git using Apstream](https://idroot.us/install-git-centos-9-stream/)
