@@ -816,6 +816,16 @@ __To launch a new EC2 instance:__
 $ aws ec2 run-instances --image-id ami-0fc5d935ebf8bc3bc --instance-type t2.micro --key-name dev-env-key --vpc-id vpc-vpc-0ec7b474b51bab8cb
 $ aws ec2 run-instances --image-id ami-0fc5d935ebf8bc3bc --instance-type t2.micro --key-name dev-env-key --subnet-id subnet-0768ab59ae60d78a7 --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=devoptut-ec2}]'
 ```
+
+__Create EC2 Instance__
+
+aws ec2 run-instances --image-id ami-0230bd60aa48260c6 --count 1 --instance-type t2.micro --key-name webcafe-prod-nvir --security-group-ids sg-022a511b101f3cf33 --subnet-id subnet-057f8038f58473b89
+
+__Add a tag and value to resource__
+
+aws ec2 create-tags --resources i-04d5c41566fda1707 --tags Key=Name,Value=web01
+
+
 __List S3 Buckets:__
 ```
 $ aws s3 ls
@@ -848,6 +858,12 @@ aws ec2 deregister-image --image-id ami-06b929c05d7301e1a
 __Delete EBS Snapshot__
 ```
 aws ec2 delete-snapshot --snapshot-id snap-0b616e246ea4da7ec
+```
+
+__Reboot an EC2 instance__
+
+```
+aws ec2 reboot-instances --instance-ids i-xxxxxxxxxxxxxxxxx
 ```
 
 
@@ -1013,9 +1029,106 @@ EBS volumes are __virtual hard disk__ for __EC2 instances__. Provides you the fo
      - Cold HDD: For file servers
      - Magnetic: Generally for Backups and Archives
 
-##### Project
+##### Project: Install and configure a website on EC instance
 - Create a Centos EC2 instance in AWS
--
+   - EC2 script (Need __ami-id__, __instance-type__, __keypair__, __security-group-id__, __subnet-id__)
+
+       ```py
+          aws ec2 run-instances --image-id ami-0230bd60aa48260c6 --count 1 --instance-type t2.micro --key-name webcafe-prod-nvir --security-group-ids sg-022a511b101f3cf33 --subnet-id subnet-057f8038f58473b89
+       ```
+   - Tagging the created EC2 instance (Copy the resource id from the EC2 creation)
+
+       ```py
+          aws ec2 create-tags --resources i-04d5c41566fda1707 --tags Key=Name,Value=web01
+       ```
+   - Launch the terminal, switch user __sudo -i__ and connect to EC2 instance via SSH form the folder that has the keypair
+
+       ```sh
+          ssh -i ~/Downloads/webcafe-prod-nvir.pem ec2-user@xx.xx.xx.xx
+       ```
+   - Create a script file __install-httpd.sh__
+       ```bash
+          $ touch install-httpd.sh
+       ```
+   
+   - Add the script
+       ```bash
+          #!/bin/bash
+          yum install httpd wget unzip -y
+          systemctl start httpd
+          systemctl enable httpd
+          cd /tmp
+          wget https://www.tooplate.com/zip-templates/2119_gymso_fitness.zip
+          unzip -o 2119_gymso_fitness.zip
+          cp -r 2119_gymso_fitness/* /var/www/html/
+          systemctl restart httpd
+       ```
+   - Make the __install-httpd.sh__ file executable
+       ```bash
+          $ chmod +x install-httpd.sh
+       ```
+
+   - Run the file __install-httpd.sh__
+       ```bash
+          $ ./install-httpd.sh
+       ```
+- Create EBS Volume
+   - Go to __EC2 instance__, click on the __Storage__ tab and rename the initial volume as __web01-ROOT-Volume__
+   - Create another volume to store the images of the web server and tag with a key value name pair
+   - Wait for the new volume to be ready and attach the volume by selecting the volume, go to __Actions__ and select __Attach Volume__
+   - Go to the terminal and switch directory to __var/www/html__
+   - Run the __fdisk -l__ command to list all the drives (virtual hard disks)
+       ```
+         $ fdisk -l 
+       ```
+       `#Disk /dev/xvda: 8GiB` OS disk
+       `#Disk /dev/xvdf: 5GiB` New attached disk/volume
+   - Create a partition on the new volume attached 
+       ```
+         $ fdisk /dev/xvdf
+       ```
+   - Type __m__, __n__, __p__, hit __Enter__ for default sector, __+3 to select only 3 gig__ or hit __Enter__ to select the entire disk, __p__ to print the partition details and __w__ to write the partition to the disk.
+
+   - Format the partition
+       ```
+         $ mkfs.ext4 /dev/xvdf1
+       ```
+   - Mount the formatted partition
+       ```
+         $ cd /var/www/html
+       ```
+   - Create a temp directory
+       ```
+         $ mkdir /tmp/img-backups
+       ```
+   - Move images to the backup folder created
+       ```
+         $ mv images/* /tmp/ima-backups
+       ```
+```
+     [root@ip-172-31-12-223 ~]# cd /var/www/html/
+     [root@ip-172-31-12-223 html]# ls
+     'ABOUT THIS TEMPLATE.txt'   css   fonts   images   index.html   js
+     [root@ip-172-31-12-223 html]# mv images/* /tmp/img-backups
+     mv: target '/tmp/img-backups' is not a directory
+     [root@ip-172-31-12-223 html]# mkdir /tmp/img-backups
+     [root@ip-172-31-12-223 html]# mv images/* /tmp/img-backups
+     [root@ip-172-31-12-223 html]# ls images/
+     [root@ip-172-31-12-223 html]# cd 
+     [root@ip-172-31-12-223 ~]# mount /dev/xvdf1 /www/html/images
+     mount: /www/html/images: mount point does not exist.
+     [root@ip-172-31-12-223 ~]# mount /dev/xvdf1 /var/www/html/images
+     [root@ip-172-31-12-223 ~]# df -h
+     Filesystem      Size  Used Avail Use% Mounted on
+     devtmpfs        4.0M     0  4.0M   0% /dev
+     tmpfs           475M     0  475M   0% /dev/shm
+     tmpfs           190M  2.9M  188M   2% /run
+     /dev/xvda1      8.0G  1.6G  6.5G  20% /
+     tmpfs           475M  652K  475M   1% /tmp
+     /dev/xvda128     10M  1.3M  8.7M  13% /boot/efi
+     tmpfs            95M     0   95M   0% /run/user/1000
+     /dev/xvdf1      4.9G   24K  4.6G   1% /var/www/html/images
+```
 
 ### ELB Types - Elastic Load Balancer
 __Load Balancer__ serves as a single access point to multiple servers deployed for an application in the cloud. 
